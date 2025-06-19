@@ -1,0 +1,11 @@
+/* Example if body has a default top margin/padding */
+body {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/* Example if a specific wrapper div is causing it */
+.some-wrapper-div {
+	/* Replace with the actual class/ID you find */
+	padding-top: 0 !important;
+}

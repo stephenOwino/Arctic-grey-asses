@@ -1,0 +1,651 @@
+{% comment %}
+  Shopify Footer Section
+  - Replicates the exact design from the provided screenshot
+  - Fully responsive and customizable via the Shopify Theme Editor
+{% endcomment %}
+
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer__content">
+      <div class="footer-grid">
+        
+        <!-- Newsletter Section -->
+        <div class="footer-grid__item footer-grid__item--newsletter">
+          {% if section.settings.newsletter_heading != blank %}
+            <h4 class="footer__heading">{{ section.settings.newsletter_heading }}</h4>
+          {% endif %}
+          {% if section.settings.newsletter_subheading != blank %}
+            <p class="footer__text">{{ section.settings.newsletter_subheading }}</p>
+          {% endif %}
+          
+          {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="newsletter-form__field-wrapper">
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="newsletter-form__input"
+                value=""
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+              >
+              <button type="submit" class="newsletter-form__button" name="commit">
+                {{ 'general.newsletter_form.subscribe' | t }}
+              </button>
+            </div>
+          {%- endform -%}
+        </div>
+
+        <!-- About Us Column -->
+        <div class="footer-grid__item">
+          <h4 class="footer__heading">{{ section.settings.menu_title_1 }}</h4>
+          <ul class="footer__linklist">
+            {%- if section.settings.about_blog_link != blank -%}
+              <li><a href="{{ section.settings.about_blog_link }}">Blog</a></li>
+            {%- endif -%}
+            {%- if section.settings.about_product_reviews_link != blank -%}
+              <li><a href="{{ section.settings.about_product_reviews_link }}">Product Reviews</a></li>
+            {%- endif -%}
+            {%- if section.settings.about_our_story_link != blank -%}
+              <li><a href="{{ section.settings.about_our_story_link }}">Our Story</a></li>
+            {%- endif -%}
+            {%- if section.settings.about_delivery_link != blank -%}
+              <li><a href="{{ section.settings.about_delivery_link }}">Delivery</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+
+        <!-- Support Column -->
+        <div class="footer-grid__item">
+          <h4 class="footer__heading">{{ section.settings.menu_title_2 }}</h4>
+          <ul class="footer__linklist">
+            {%- if section.settings.support_order_status_link != blank -%}
+              <li><a href="{{ section.settings.support_order_status_link }}">Order Status</a></li>
+            {%- endif -%}
+            {%- if section.settings.support_help_center_link != blank -%}
+              <li><a href="{{ section.settings.support_help_center_link }}">Help Center</a></li>
+            {%- endif -%}
+            {%- if section.settings.support_contact_us_link != blank -%}
+              <li><a href="{{ section.settings.support_contact_us_link }}">Contact Us</a></li>
+            {%- endif -%}
+            {%- if section.settings.support_returns_link != blank -%}
+              <li><a href="{{ section.settings.support_returns_link }}">Returns</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+
+        <!-- Important Link Column -->
+        <div class="footer-grid__item">
+          <h4 class="footer__heading">{{ section.settings.menu_title_3 }}</h4>
+          <ul class="footer__linklist">
+            {%- if section.settings.important_maintenance_link != blank -%}
+              <li><a href="{{ section.settings.important_maintenance_link }}">Maintenance</a></li>
+            {%- endif -%}
+            {%- if section.settings.important_warranty_link != blank -%}
+              <li><a href="{{ section.settings.important_warranty_link }}">Warranty</a></li>
+            {%- endif -%}
+            {%- if section.settings.important_canadian_customers_link != blank -%}
+              <li><a href="{{ section.settings.important_canadian_customers_link }}">Canadian Customers</a></li>
+            {%- endif -%}
+            {%- if section.settings.important_setup_link != blank -%}
+              <li><a href="{{ section.settings.important_setup_link }}">Setup</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+
+        <!-- Legal Column -->
+        <div class="footer-grid__item">
+          <h4 class="footer__heading">{{ section.settings.menu_title_4 }}</h4>
+          <ul class="footer__linklist">
+            {%- if section.settings.legal_privacy_policy_link != blank -%}
+              <li><a href="{{ section.settings.legal_privacy_policy_link }}">Privacy Policy</a></li>
+            {%- endif -%}
+            {%- if section.settings.legal_accessibility_link != blank -%}
+              <li><a href="{{ section.settings.legal_accessibility_link }}">Accessibility</a></li>
+            {%- endif -%}
+            {%- if section.settings.legal_terms_of_service_link != blank -%}
+              <li><a href="{{ section.settings.legal_terms_of_service_link }}">Terms of Service</a></li>
+            {%- endif -%}
+            {%- if section.settings.legal_affiliate_program_link != blank -%}
+              <li><a href="{{ section.settings.legal_affiliate_program_link }}">Affiliate Program</a></li>
+            {%- endif -%}
+            {%- if section.settings.legal_articles_link != blank -%}
+              <li><a href="{{ section.settings.legal_articles_link }}">Articles</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-grid__item footer-grid__item--contact">
+          {% if section.settings.contact_heading != blank %}
+            <h4 class="footer__heading">{{ section.settings.contact_heading }}</h4>
+          {% endif %}
+          {% if section.settings.contact_subheading != blank %}
+            <p class="footer__text footer__text--contact">{{ section.settings.contact_subheading }}</p>
+          {% endif %}
+          {% if section.settings.contact_phone != blank %}
+            <a href="tel:{{ section.settings.contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}" class="contact-info__phone">{{ section.settings.contact_phone }}</a>
+          {% endif %}
+          
+          {% if section.settings.social_heading != blank %}
+            <h4 class="footer__heading footer__heading--social">{{ section.settings.social_heading }}</h4>
+          {% endif %}
+          <div class="footer__social-icons">
+            {%- if section.settings.social_instagram_link != blank -%}
+              <a href="{{ section.settings.social_instagram_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_twitter_link != blank -%}
+              <a href="{{ section.settings.social_twitter_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" fill="currentColor"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_facebook_link != blank -%}
+              <a href="{{ section.settings.social_facebook_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_youtube_link != blank -%}
+              <a href="{{ section.settings.social_youtube_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="currentColor"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer__bottom">
+      <div class="footer__bottom-content">
+        <div class="footer__copyright">
+          <span>&copy; {{ 'now' | date: "%Y" }} {{ section.settings.copyright_text }}</span>
+        </div>
+        {% if section.settings.attribution_text != blank %}
+          <div class="footer__attribution">
+            <span>{{ section.settings.attribution_text }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #F9FAFB;
+    padding: 64px 0 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #374151;
+  }
+
+  .page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .footer__content {
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 48px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.2fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Typography */
+  .footer__heading {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+  }
+  
+  .footer__heading--social {
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+
+  .footer__text {
+    font-size: 14px;
+    color: #6B7280;
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+    max-width: 280px;
+  }
+
+  .footer__text--contact {
+    margin-bottom: 8px;
+  }
+
+  /* Newsletter Section */
+  .footer-grid__item--newsletter {
+    max-width: 320px;
+  }
+
+  .footer__newsletter-form {
+    width: 100%;
+  }
+
+  .newsletter-form__field-wrapper {
+    display: flex;
+    width: 100%;
+  }
+
+  .newsletter-form__input {
+    flex: 1;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: #111827;
+    background-color: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .newsletter-form__input::placeholder {
+    color: #9CA3AF;
+  }
+
+  .newsletter-form__input:focus {
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 1px #3B82F6;
+  }
+
+  .newsletter-form__button {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    background-color: #111827;
+    border: 1px solid #111827;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+    min-width: 80px;
+  }
+
+  .newsletter-form__button:hover {
+    background-color: #1F2937;
+  }
+
+  /* Link Lists */
+  .footer__linklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .footer__linklist a {
+    text-decoration: none;
+    color: #6B7280;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .footer__linklist a:hover {
+    color: #111827;
+  }
+
+  /* Contact Section */
+  .contact-info__phone {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .contact-info__phone:hover {
+    color: #374151;
+  }
+  
+  .footer__social-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .social-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6B7280;
+    transition: color 0.2s ease;
+    text-decoration: none;
+  }
+  
+  .social-icon-link:hover {
+    color: #111827;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Footer Bottom */
+  .footer__bottom {
+    padding: 24px 0;
+  }
+
+  .footer__bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #9CA3AF;
+  }
+
+  .footer__copyright,
+  .footer__attribution {
+    font-size: 14px;
+    color: #9CA3AF;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+      gap: 32px;
+    }
+    
+    .footer-grid__item:nth-child(4) {
+      grid-row: 2;
+      grid-column: 2;
+    }
+    
+    .footer-grid__item:nth-child(5) {
+      grid-row: 2;
+      grid-column: 3;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .site-footer {
+      padding-top: 48px;
+    }
+    
+    .page-width {
+      padding: 0 20px;
+    }
+    
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    
+    .footer-grid__item--newsletter {
+      grid-column: 1 / -1;
+      max-width: none;
+    }
+    
+    .footer-grid__item--contact {
+      grid-column: 1 / -1;
+      margin-top: 16px;
+    }
+    
+    .footer__bottom-content {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    
+    .newsletter-form__field-wrapper {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .newsletter-form__input {
+      border-radius: 6px;
+      border-right: 1px solid #D1D5DB;
+    }
+    
+    .newsletter-form__button {
+      border-radius: 6px;
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "Be a Part of Our Journey"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_subheading",
+      "label": "Subheading",
+      "default": "Welcome to UNCMFRT. Sign up for exclusive content and we'll send you 10% off."
+    },
+    {
+      "type": "header",
+      "content": "Menu Columns"
+    },
+    {
+      "type": "text",
+      "id": "menu_title_1",
+      "label": "About Us Title",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "about_blog_link",
+      "label": "Blog Link"
+    },
+    {
+      "type": "url",
+      "id": "about_product_reviews_link",
+      "label": "Product Reviews Link"
+    },
+    {
+      "type": "url",
+      "id": "about_our_story_link",
+      "label": "Our Story Link"
+    },
+    {
+      "type": "url",
+      "id": "about_delivery_link",
+      "label": "Delivery Link"
+    },
+    {
+      "type": "text",
+      "id": "menu_title_2",
+      "label": "Support Title",
+      "default": "Support"
+    },
+    {
+      "type": "url",
+      "id": "support_order_status_link",
+      "label": "Order Status Link"
+    },
+    {
+      "type": "url",
+      "id": "support_help_center_link",
+      "label": "Help Center Link"
+    },
+    {
+      "type": "url",
+      "id": "support_contact_us_link",
+      "label": "Contact Us Link"
+    },
+    {
+      "type": "url",
+      "id": "support_returns_link",
+      "label": "Returns Link"
+    },
+    {
+      "type": "text",
+      "id": "menu_title_3",
+      "label": "Important Link Title",
+      "default": "Important Link"
+    },
+    {
+      "type": "url",
+      "id": "important_maintenance_link",
+      "label": "Maintenance Link"
+    },
+    {
+      "type": "url",
+      "id": "important_warranty_link",
+      "label": "Warranty Link"
+    },
+    {
+      "type": "url",
+      "id": "important_canadian_customers_link",
+      "label": "Canadian Customers Link"
+    },
+    {
+      "type": "url",
+      "id": "important_setup_link",
+      "label": "Setup Link"
+    },
+    {
+      "type": "text",
+      "id": "menu_title_4",
+      "label": "Legal Title",
+      "default": "Legal"
+    },
+    {
+      "type": "url",
+      "id": "legal_privacy_policy_link",
+      "label": "Privacy Policy Link"
+    },
+    {
+      "type": "url",
+      "id": "legal_accessibility_link",
+      "label": "Accessibility Link"
+    },
+    {
+      "type": "url",
+      "id": "legal_terms_of_service_link",
+      "label": "Terms of Service Link"
+    },
+    {
+      "type": "url",
+      "id": "legal_affiliate_program_link",
+      "label": "Affiliate Program Link"
+    },
+    {
+      "type": "url",
+      "id": "legal_articles_link",
+      "label": "Articles Link"
+    },
+    {
+      "type": "header",
+      "content": "Contact & Social"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "contact_subheading",
+      "label": "Contact Subheading",
+      "default": "Let Us Help You"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone Number",
+      "default": "(888) 860-0572"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social Heading",
+      "default": "Connect With Us"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram_link",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter_link",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook_link",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube_link",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "uncmfrt.com. All right reserved."
+    },
+    {
+      "type": "text",
+      "id": "attribution_text",
+      "label": "Attribution Text",
+      "default": "Made with ♥︎ and 🛒 by Arctic Grey"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
+    }
+  ]
+}
+{% endschema %}

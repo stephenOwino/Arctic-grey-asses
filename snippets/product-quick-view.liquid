@@ -1,0 +1,201 @@
+{% comment %}
+  Product Modal / Quick View
+{% endcomment %}
+<div id="product-quick-view" class="product-modal hidden fixed inset-0 z-50">
+  <div class="modal-overlay absolute inset-0 bg-gray-800 bg-opacity-75"></div>
+  
+  <div class="modal-container relative bg-white w-full max-w-4xl mx-auto rounded-lg shadow-lg overflow-y-auto">
+    <!-- Close Button -->
+    <button class="modal-close absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="modal-content flex flex-col md:flex-row">
+      <!-- Left Column - Product Image -->
+      <div class="w-full md:w-1/2 p-8">
+        <img 
+          id="modal-product-image" 
+          src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" 
+          alt="{{ product.title }}" 
+          class="w-auto mx-auto"
+        >
+      </div>
+      
+      <!-- Right Column - Product Details -->
+      <div class="w-full md:w-1/2 p-8">
+        <div class="product-details">
+          <h2 id="modal-product-title" class="text-2xl font-bold mb-2">Magnesium L-Threonate</h2>
+          <p id="modal-product-description" class="text-gray-600 mb-6">Enhances the quality of sleep.</p>
+          
+          <!-- Product Badges -->
+          <div class="product-badges flex gap-4 mb-8">
+            <span class="badge flex items-center text-sm">
+              <span class="w-2 h-2 bg-black rounded-full mr-1"></span>
+              GMO Free
+            </span>
+            <span class="badge flex items-center text-sm">
+              <span class="w-2 h-2 bg-black rounded-full mr-1"></span>
+              Gluten Free
+            </span>
+          </div>
+          
+          <!-- Star Rating -->
+          <div class="stars flex mb-8">
+            {% for i in (1..5) %}
+              {% render 'icon-star-filled' %}
+            {% endfor %}
+          </div>
+          
+          <!-- Variant Selection -->
+          <div class="variant-selection mb-6">
+            <h3 class="text-sm font-medium mb-4">Variant</h3>
+            
+            <div class="variants-grid grid grid-cols-3 gap-4">
+              <div class="variant-option flex items-center p-4 border border-gray-200 rounded-md">
+                <img src="{{ 'small-bottle.png' | asset_url }}" alt="Small" class="w-10 h-auto mr-3">
+                <div>
+                  <p class="font-medium">Small</p>
+                  <p class="text-xs text-gray-500">30 Capsules</p>
+                </div>
+              </div>
+              
+              <div class="variant-option flex items-center p-4 border border-gray-200 rounded-md">
+                <img src="{{ 'medium-bottle.png' | asset_url }}" alt="Medium" class="w-10 h-auto mr-3">
+                <div>
+                  <p class="font-medium">Medium</p>
+                  <p class="text-xs text-gray-500">60 Capsules</p>
+                </div>
+              </div>
+              
+              <div class="variant-option flex items-center p-4 border border-gray-200 rounded-md">
+                <img src="{{ 'large-bottle.png' | asset_url }}" alt="Large" class="w-10 h-auto mr-3">
+                <div>
+                  <p class="font-medium">Large</p>
+                  <p class="text-xs text-gray-500">90 Capsules</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Quantity & Price Table -->
+          <div class="quantity-price-table mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-sm font-medium">Quantity</h3>
+              <div class="tooltip">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            
+            <table class="w-full text-sm">
+              <tr class="text-gray-500 border-b">
+                <th class="text-left py-2">Quantity</th>
+                <th class="text-left py-2">Discount</th>
+                <th class="text-right py-2">Price</th>
+              </tr>
+              <tr>
+                <td class="py-2">0-5</td>
+                <td>0%</td>
+                <td class="text-right">$49.95 / Each</td>
+              </tr>
+              <tr>
+                <td class="py-2">5-10</td>
+                <td>5%</td>
+                <td class="text-right">$49.95 / Each</td>
+              </tr>
+              <tr>
+                <td class="py-2">10-15</td>
+                <td>10%</td>
+                <td class="text-right"></td>
+              </tr>
+              <tr>
+                <td class="py-2">15-20</td>
+                <td>15%</td>
+                <td class="text-right"></td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Quantity Selector -->
+          <div class="quantity-selector flex items-center justify-between mb-6">
+            <div class="flex items-center">
+              <button class="quantity-btn-minus bg-gray-100 w-8 h-8 flex items-center justify-center rounded-md">−</button>
+              <input type="number" value="1" min="1" class="w-12 text-center mx-2">
+              <button class="quantity-btn-plus bg-gray-100 w-8 h-8 flex items-center justify-center rounded-md">+</button>
+            </div>
+            
+            <div>
+              <p class="text-lg font-medium">$49.95 / Each</p>
+            </div>
+            
+            <div>
+              <p class="text-lg font-medium">5%</p>
+            </div>
+            
+            <div>
+              <p class="text-lg font-medium">$249.95</p>
+            </div>
+          </div>
+          
+          <!-- Total Info -->
+          <div class="order-total flex justify-between items-center mb-8">
+            <div>
+              <a href="#" class="text-gray-600 hover:underline text-sm">View Cart</a>
+              <p class="text-xs text-gray-500">Total Items: 20</p>
+            </div>
+            
+            <div class="text-right">
+              <p class="text-lg font-bold">$249.95</p>
+              <p class="text-xs text-gray-500">Product Subtotal</p>
+              <p class="text-xs text-gray-500">Taxes & shipping calculated at checkout</p>
+            </div>
+          </div>
+          
+          <!-- Purchase Options -->
+          <div class="purchase-options grid grid-cols-2 gap-4 mb-8">
+            <label class="purchase-option flex items-center border border-gray-200 rounded-md p-4">
+              <input type="radio" name="purchase_type" value="one-time" class="mr-3">
+              <div>
+                <p class="font-medium">One-Time Purchase</p>
+                <p class="text-sm">$49.95</p>
+                <p class="text-xs text-gray-500">Delivery Every 2 Months</p>
+              </div>
+            </label>
+            
+            <label class="purchase-option flex items-center border border-gray-200 rounded-md p-4 bg-gray-50">
+              <input type="radio" name="purchase_type" value="subscribe" checked class="mr-3">
+              <div>
+                <p class="font-medium">Subscribe & Save</p>
+                <p class="text-sm">$39.96 <span class="text-red-600 text-xs">Save 10%</span></p>
+                <p class="text-xs text-gray-500">Delivery Every 2 Months</p>
+              </div>
+            </label>
+          </div>
+          
+          <!-- Add to Cart Button -->
+          <div class="add-to-cart-container mb-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <button class="quantity-minus bg-gray-100 w-8 h-8 flex items-center justify-center rounded-l-md">−</button>
+                <input type="number" value="1" min="1" class="w-12 text-center border-y border-gray-200">
+                <button class="quantity-plus bg-gray-100 w-8 h-8 flex items-center justify-center rounded-r-md">+</button>
+              </div>
+              
+              <button class="add-to-cart-btn bg-gray-900 text-white px-4 py-3 rounded-md flex-1 ml-4">
+                Add to Cart - $39.96
+              </button>
+            </div>
+          </div>
+          
+          <!-- View Details Link -->
+          <div class="text-center">
+            <a href="#" class="text-gray-600 hover:underline text-sm">View Full Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

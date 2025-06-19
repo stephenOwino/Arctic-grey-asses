@@ -1,0 +1,685 @@
+{
+  "sections": {
+    "hero_next_gen_ABC123": {
+      "type": "hero-next-gen",
+      "settings": {
+        "background_image": "shopify://shop_images/hero-next-generation.jpg",
+        "title": "The Next Generation is Here",
+        "subtitle": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I.",
+        "primary_button_text": "Take The Plunge",
+        "primary_button_url": "shopify://collections/all",
+        "secondary_button_text": "Dive Deeper",
+        "secondary_button_url": "/pages/about"
+      }
+    },
+    "hero_video_mEeC9C": {
+      "type": "hero-video",
+      "settings": {
+        "heading": "Great things never came from comfort zones.",
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "video_mp4": "https://cdn.shopify.com/videos/c/o/v/3834dd34176c4a20ac93d77f8d42ae57.mp4"
+      }
+    },
+    "marquee_banner": {
+      "type": "marquee-banner-section",
+      "settings": {
+        "enable_marquee": true,
+        "marquee_speed": 30
+      }
+    },
+    "featured_logos": {
+      "type": "featured-logos",
+      "blocks": {
+        "logo1": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-rollingstone.png",
+            "logo_alt": "Rolling Stone"
+          }
+        },
+        "logo2": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-mensjournal.png",
+            "logo_alt": "Men's Journal"
+          }
+        },
+        "logo3": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-ladweekly.png",
+            "logo_alt": "LA Weekly"
+          }
+        },
+        "logo4": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-herb.png",
+            "logo_alt": "Herb"
+          }
+        },
+        "logo5": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-nytimes.png",
+            "logo_alt": "The New York Times"
+          }
+        },
+        "logo6": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-bbc.svg",
+            "logo_alt": "BBC News"
+          }
+        }
+      },
+      "block_order": [
+        "logo1",
+        "logo2",
+        "logo3",
+        "logo4",
+        "logo5",
+        "logo6"
+      ],
+      "settings": {
+        "badge_text": "#1 Doctor Recommended",
+        "reviews_text": "12,000+ 5-star Reviews"
+      }
+    },
+    "health_goals_6LTBPK": {
+      "type": "Health-Goals",
+      "blocks": {
+        "goal_FXMFL6": {
+          "type": "goal",
+          "settings": {
+            "image": "shopify://shop_images/sleep.png",
+            "title": "Sleep",
+            "description": "Optimize your sleep patterns.",
+            "link": ""
+          }
+        },
+        "goal_riFpCw": {
+          "type": "goal",
+          "settings": {
+            "image": "shopify://shop_images/Image_2.png",
+            "title": "Cognitive Function",
+            "description": "Enhance your brain's performance and connectivity",
+            "link": ""
+          }
+        },
+        "goal_i9aeNy": {
+          "type": "goal",
+          "settings": {
+            "image": "shopify://shop_images/Image_4506e269-eb11-45a8-9618-31b5020dc6c8.png",
+            "title": "Foundational Health",
+            "description": "Promoting healthy, natural deep sleep day to day",
+            "link": ""
+          }
+        },
+        "goal_8CGbd6": {
+          "type": "goal",
+          "settings": {
+            "image": "shopify://shop_images/Image_4.png",
+            "title": "Athletic Performance",
+            "description": "Increase your healthy tissue, muscle, and energy",
+            "link": ""
+          }
+        },
+        "goal_EaKkwV": {
+          "type": "goal",
+          "settings": {
+            "image": "shopify://shop_images/Image_5.png",
+            "title": "Hormone Support",
+            "description": "Boost your mood, libido, and vitality",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "goal_FXMFL6",
+        "goal_riFpCw",
+        "goal_i9aeNy",
+        "goal_8CGbd6",
+        "goal_EaKkwV"
+      ],
+      "name": "Health Goals",
+      "settings": {
+        "subtitle": "COMFORTABLY UNCOMFORTABLE",
+        "title": "Start with your Goals",
+        "description": "We cannot become what we want to be by remaining what we are."
+      }
+    },
+    "supplements_slider_638CB8": {
+      "type": "supplements-slider",
+      "blocks": {
+        "supplement_7Ak8Wd": {
+          "type": "supplement",
+          "settings": {
+            "is_bestseller": true,
+            "product_image": "shopify://shop_images/suplement1.png",
+            "product_title": "Omega-3",
+            "product_description": "Supports cognitive function",
+            "is_gmo_free": true,
+            "is_gluten_free": true,
+            "is_vegan": false,
+            "is_dairy_free": false,
+            "product_price": "49.95",
+            "product_url": ""
+          }
+        },
+        "supplement_HfKWDf": {
+          "type": "supplement",
+          "settings": {
+            "is_bestseller": false,
+            "product_image": "shopify://shop_images/suplement2.png",
+            "product_title": "Magnesium L-Threonate",
+            "product_description": "Enhances the quality of sleep.",
+            "is_gmo_free": true,
+            "is_gluten_free": true,
+            "is_vegan": false,
+            "is_dairy_free": false,
+            "product_price": "49.95",
+            "product_url": ""
+          }
+        },
+        "supplement_F8Wj46": {
+          "type": "supplement",
+          "settings": {
+            "is_bestseller": false,
+            "product_image": "shopify://shop_images/suplement3.png",
+            "product_title": "Grass Fed Whey Protein Isolate Powder",
+            "product_description": "Supports muscle mass and strength",
+            "is_gmo_free": true,
+            "is_gluten_free": false,
+            "is_vegan": true,
+            "is_dairy_free": true,
+            "product_price": "49.95",
+            "product_url": ""
+          }
+        },
+        "supplement_EadFfy": {
+          "type": "supplement",
+          "settings": {
+            "is_bestseller": true,
+            "product_image": "shopify://shop_images/suplement4.png",
+            "product_title": "Complete Sleep Bundle",
+            "product_description": "Deepens sleep cycles for rejuvenated mornings",
+            "is_gmo_free": false,
+            "is_gluten_free": true,
+            "is_vegan": true,
+            "is_dairy_free": true,
+            "product_price": "49.95",
+            "product_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "supplement_7Ak8Wd",
+        "supplement_HfKWDf",
+        "supplement_F8Wj46",
+        "supplement_EadFfy"
+      ],
+      "name": "Supplements Slider",
+      "settings": {
+        "section_title": "Supplements",
+        "view_all_link": ""
+      }
+    },
+    "testimonial_section": {
+      "type": "testimonial-section",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/results1.png",
+            "product_image": "shopify://shop_images/suplement1.png",
+            "product_title": "Magnesium L-Threonate",
+            "product_price": "49.95"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/results2.png",
+            "product_image": "shopify://shop_images/suplement2.png",
+            "product_title": "Magnesium L-Threonate",
+            "product_price": "49.95"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/results4.png",
+            "product_image": "shopify://shop_images/suplement1.png",
+            "product_title": "Magnesium L-Threonate",
+            "product_price": "49.95"
+          }
+        },
+        "testimonial_4VMGia": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/results3.png",
+            "product_image": "shopify://shop_images/suplement1.png",
+            "product_title": "Magnesium L-Threonate",
+            "product_price": "49.95"
+          }
+        },
+        "testimonial_Mqb9q7": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/results5.png",
+            "product_image": "shopify://shop_images/suplement1.png",
+            "product_title": "Magnesium L-Threonate",
+            "product_price": "49.95"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3",
+        "testimonial_4VMGia",
+        "testimonial_Mqb9q7"
+      ],
+      "settings": {
+        "subheading": "Trusted & Proven by Science",
+        "heading": "Real People. Real Results.",
+        "view_all_text": "View All",
+        "view_all_link": ""
+      }
+    },
+    "bundles_section": {
+      "type": "bundles-section",
+      "blocks": {
+        "category_tab_1": {
+          "type": "category_tab",
+          "settings": {
+            "tab_name": "Sleep",
+            "tab_link": ""
+          }
+        },
+        "category_tab_2": {
+          "type": "category_tab",
+          "settings": {
+            "tab_name": "Cognitive Function",
+            "tab_link": ""
+          }
+        },
+        "category_tab_3": {
+          "type": "category_tab",
+          "settings": {
+            "tab_name": "Foundational Health",
+            "tab_link": ""
+          }
+        },
+        "category_tab_4": {
+          "type": "category_tab",
+          "settings": {
+            "tab_name": "Athletic Performance",
+            "tab_link": ""
+          }
+        },
+        "category_tab_5": {
+          "type": "category_tab",
+          "settings": {
+            "tab_name": "Hormone Support",
+            "tab_link": ""
+          }
+        },
+        "bundle_1": {
+          "type": "bundle",
+          "settings": {
+            "badge_type": "bestseller",
+            "badge_text": "Bestseller",
+            "bundle_image": "shopify://shop_images/bundleeee.png",
+            "bundle_title": "Tongkat & Fadogia 60 Day Supply",
+            "bundle_subtitle": "Hormone Support",
+            "bundle_tags": "GMO Free\nGluten Free"
+          }
+        },
+        "bundle_2": {
+          "type": "bundle",
+          "settings": {
+            "badge_type": "none",
+            "badge_text": "",
+            "bundle_image": "shopify://shop_images/bundle1.png",
+            "bundle_title": "Male Hormone Support Bundle",
+            "bundle_subtitle": "Hormone Support, Foundational Health",
+            "bundle_tags": "GMO Free\nGluten Free"
+          }
+        },
+        "bundle_3": {
+          "type": "bundle",
+          "settings": {
+            "badge_type": "none",
+            "badge_text": "",
+            "bundle_image": "shopify://shop_images/bundle2.png",
+            "bundle_title": "Complete Sleep Bundle",
+            "bundle_subtitle": "Cognitive Function, Mood Regulation, Sleep Quality",
+            "bundle_tags": "Gluten Free\nVegan\nDairy Free"
+          }
+        },
+        "bundle_4": {
+          "type": "bundle",
+          "settings": {
+            "badge_type": "new",
+            "badge_text": "New",
+            "bundle_image": "shopify://shop_images/bundle4.png",
+            "bundle_title": "PR Lotion Starter Kit",
+            "bundle_subtitle": "Athletic Performance, Muscle Recovery",
+            "bundle_tags": "Gluten Free\nVegan\nDairy Free"
+          }
+        }
+      },
+      "block_order": [
+        "category_tab_1",
+        "category_tab_2",
+        "category_tab_3",
+        "category_tab_4",
+        "category_tab_5",
+        "bundle_1",
+        "bundle_2",
+        "bundle_3",
+        "bundle_4"
+      ],
+      "settings": {
+        "icon_label": "Goals Specific",
+        "heading": "Bundles",
+        "view_all_text": "View All Bundles",
+        "view_all_link": ""
+      }
+    },
+    "protein_powder_section_RqtzfU": {
+      "type": "protein-powder-section",
+      "blocks": {
+        "image_KBGywh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/suplement3.png"
+          }
+        },
+        "feature_RtjkyB": {
+          "type": "feature",
+          "settings": {
+            "feature_text": "Whey Based"
+          }
+        },
+        "feature_DMVmep": {
+          "type": "feature",
+          "settings": {
+            "feature_text": "Build Muscle"
+          }
+        },
+        "feature_8bN6Dw": {
+          "type": "feature",
+          "settings": {
+            "feature_text": "Clean Ingredients"
+          }
+        },
+        "ingredient_VqRwwK": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "Whey Protein Isolate",
+            "ingredient_description": "Low Calorie With Virtually No Fat or Lactose, Quickly Absorbed To Maximize Muscle Building & Repair."
+          }
+        },
+        "ingredient_BkJN8w": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "Whey Protein Isolate",
+            "ingredient_description": "Low Calorie With Virtually No Fat or Lactose, Quickly Absorbed To Maximize Muscle Building & Repair."
+          }
+        },
+        "ingredient_C3pWkT": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "Whey Protein Isolate",
+            "ingredient_description": "Low Calorie With Virtually No Fat or Lactose, Quickly Absorbed To Maximize Muscle Building & Repair."
+          }
+        }
+      },
+      "block_order": [
+        "image_KBGywh",
+        "feature_RtjkyB",
+        "feature_DMVmep",
+        "feature_8bN6Dw",
+        "ingredient_VqRwwK",
+        "ingredient_BkJN8w",
+        "ingredient_C3pWkT"
+      ],
+      "name": "Protein Powder Section",
+      "settings": {
+        "subheading": "Simple & Effective Ingredients",
+        "heading": "Customized Protein Powder",
+        "card_title": "The Blend",
+        "ingredients_title": "Active Ingredients",
+        "button_text": "Customize This Blend",
+        "icon_arrow_left": "shopify://shop_images/arowleft.png",
+        "icon_arrow_right": "shopify://shop_images/arowright.png",
+        "icon_leaf": "shopify://shop_images/leaves_1_1_1.png"
+      }
+    },
+    "blog_section_ABC123": {
+      "type": "blog-section",
+      "blocks": {
+        "featured_article_1": {
+          "type": "featured_article",
+          "settings": {
+            "image": "featured-article.jpg",
+            "category": "Balanced Diet",
+            "title": "Foundational Supplements: Build a Better You",
+            "author": "Emily Thompson",
+            "date": "August 31, 2023"
+          }
+        },
+        "regular_article_1": {
+          "type": "regular_article",
+          "settings": {
+            "image": "article-1.jpg",
+            "category": "Balanced Diet", 
+            "title": "Taming the Fire Within: Everything You Need to Know About Inflammation",
+            "author": "Emily Thompson",
+            "date": "August 31, 2023"
+          }
+        },
+        "regular_article_2": {
+          "type": "regular_article",
+          "settings": {
+            "image": "article-2.jpg",
+            "category": "Balanced Diet",
+            "title": "Optimize Your Sleep with These 15 Strategies", 
+            "author": "Emily Thompson",
+            "date": "August 31, 2023"
+          }
+        },
+        "instagram_1": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-1.jpg"
+          }
+        },
+        "instagram_2": {
+          "type": "instagram_post", 
+          "settings": {
+            "image": "instagram-2.jpg"
+          }
+        },
+        "instagram_3": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-3.jpg"
+          }
+        },
+        "instagram_4": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-4.jpg"
+          }
+        },
+        "instagram_5": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-5.jpg"
+          }
+        },
+        "instagram_6": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-6.jpg"
+          }
+        
+        },
+        "instagram_7": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-7.jpg"
+          }
+        
+        },
+        "instagram_8": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-8.jpg"
+          }
+        },
+        "instagram_9": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-9.jpg"
+          }
+        },
+        "instagram_10": {
+          "type": "instagram_post",
+          "settings": {
+            "image": "instagram-10.jpg"
+          }
+        }
+      },
+    "block_order": [
+  "featured_article_1",
+  "regular_article_1",
+  "regular_article_2",
+  "instagram_1",
+  "instagram_2",
+  "instagram_3",
+  "instagram_4",
+  "instagram_5",
+  "instagram_6",
+  "instagram_7",
+  "instagram_8",
+  "instagram_9",
+  "instagram_10"
+],
+      "settings": {
+        "badge_text": "Blogs",
+        "title": "Latest Articles",
+        "view_all_text": "View All",
+        "view_all_link": "/blogs",
+        "instagram_handle_short": "Lge",
+        "instagram_handle": "@uncmfrt.com",
+        "follow_button_text": "Follow Us on Instagram",
+        "instagram_follow_link": "https://instagram.com/uncmfrt.com"
+      }
+    },
+    "clean_supplements_ABC123": {
+      "type": "clean-supplements",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "easy-icon.svg",
+            "title": "We Make It Easy",
+            "description": "Personalized Solutions & Guidance Mean You Get Just What You Need Nothing More"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "effective-icon.svg",
+            "title": "Clean & Effective",
+            "description": "Proven Ingredients, not Artificial, Crafted By Experts For Optimal Effectiveness"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "dietitian-icon.svg",
+            "title": "Your Free Dietitian",
+            "description": "Every Gainful Subscriber Gets Free, 1:1 Access Their Own Registered Dietitian."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "made-for-you-icon.svg",
+            "title": "Made For You",
+            "description": "Performance is Personal. Personalized & Customizable Products For Your Needs, Body & Goals"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "subtitle": "Why Health & Fitness",
+        "title": "Clean Supplements - Made For You"
+      }
+    },
+    "footer_section": {
+      "type": "footer",
+      "settings": {
+        "newsletter_heading": "Be a Part of Our Journey",
+        "newsletter_subheading": "Welcome to UNCMFRT. Sign up for exclusive content and we'll send you 10% off.",
+        "menu_title_1": "About Us",
+        "about_blog_link": "/blogs/news",
+        "about_product_reviews_link": "/pages/product-reviews",
+        "about_our_story_link": "/pages/our-story",
+        "about_delivery_link": "/pages/delivery",
+        "menu_title_2": "Support",
+        "support_order_status_link": "/pages/order-status",
+        "support_help_center_link": "/pages/help-center",
+        "support_contact_us_link": "/pages/contact",
+        "support_returns_link": "/pages/returns",
+        "menu_title_3": "Important Link",
+        "important_maintenance_link": "/pages/maintenance",
+        "important_warranty_link": "/pages/warranty",
+        "important_canadian_customers_link": "/pages/canadian-customers",
+        "important_setup_link": "/pages/setup",
+        "menu_title_4": "Legal",
+        "legal_privacy_policy_link": "/pages/privacy-policy",
+        "legal_accessibility_link": "/pages/accessibility",
+        "legal_terms_of_service_link": "/pages/terms-of-service",
+        "legal_affiliate_program_link": "/pages/affiliate-program",
+        "legal_articles_link": "/blogs/articles",
+        "contact_heading": "Contact Us",
+        "contact_subheading": "Let Us Help You",
+        "contact_phone": "(888) 860-0572",
+        "social_heading": "Connect With Us",
+        "social_instagram_link": "https://instagram.com/uncmfrt.com",
+        "social_twitter_link": "https://twitter.com/uncmfrt",
+        "social_facebook_link": "https://facebook.com/uncmfrt",
+        "social_youtube_link": "https://youtube.com/uncmfrt",
+        "copyright_text": "uncmfrt.com. All right reserved.",
+        "attribution_text": "Made with ♥︎ and 🛒 by Arctic Grey"
+      }
+    }
+  },
+  "order": [
+    "hero_video_mEeC9C",
+    "marquee_banner",
+    "featured_logos",
+    "health_goals_6LTBPK",
+    "supplements_slider_638CB8",
+    "testimonial_section",
+    "bundles_section",
+    "protein_powder_section_RqtzfU",
+    "blog_section_ABC123",
+    "clean_supplements_ABC123",
+        "hero_next_gen_ABC123",
+    "footer_section"
+  ]
+}

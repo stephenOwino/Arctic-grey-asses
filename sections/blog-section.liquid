@@ -1,0 +1,594 @@
+{% comment %}
+  File: sections/blog-section.liquid
+  Description: "Latest Articles" blog section for Shopify theme
+  Version: 2.0 (Corrected Layout)
+{% endcomment %}
+
+<section class="blog-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="header-left">
+        <div class="blogs-badge">
+          {% comment %} Ensure you have 'blog-icon.svg' in your assets folder {% endcomment %}
+          <img src="{{ 'blog-icon.svg' | asset_url }}" alt="Blogs" class="blog-icon">
+          <span>{{ section.settings.badge_text }}</span>
+        </div>
+        <h2 class="section-title">{{ section.settings.title }}</h2>
+      </div>
+      <div class="header-right">
+        {% if section.settings.view_all_link != blank %}
+          <a href="{{ section.settings.view_all_link }}" class="view-all-link">
+            {{ section.settings.view_all_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="blog-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'featured_article' %}
+          <div class="featured-article">
+            <div class="article-image">
+              <img src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.title | escape }}">
+            </div>
+            <div class="article-content">
+              <span class="article-category">{{ block.settings.category }}</span>
+              <h3 class="article-title">{{ block.settings.title }}</h3>
+              <div class="article-meta">
+                <span class="author">By {{ block.settings.author }}</span>
+                <span class="date">{{ block.settings.date }}</span>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <div class="regular-articles">
+        {% for block in section.blocks %}
+          {% if block.type == 'regular_article' %}
+            <div class="regular-article">
+              <div class="article-image">
+                <img src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.title | escape }}">
+              </div>
+              <div class="article-content">
+                <span class="article-category">{{ block.settings.category }}</span>
+                <h4 class="article-title">{{ block.settings.title }}</h4>
+                <div class="article-meta">
+                  <span class="author">By {{ block.settings.author }}</span>
+                  <span class="date">{{ block.settings.date }}</span>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="instagram-section-wrapper">
+      <div class="instagram-grid">
+        <div class="instagram-header-block">
+          <div class="instagram-logo-wrapper">
+            <div class="instagram-logo-circle">
+              <img src="{{ section.settings.logo_image | asset_url }}" alt="{{ section.settings.instagram_handle | escape }}">
+            </div>
+            <span class="instagram-handle">{{ section.settings.instagram_handle }}</span>
+          </div>
+          {% if section.settings.instagram_follow_link != blank %}
+            <a href="{{ section.settings.instagram_follow_link }}" class="follow-button">
+              {{ section.settings.follow_button_text }}
+            </a>
+          {% endif %}
+        </div>
+        
+        {% for block in section.blocks %}
+          {% if block.type == 'instagram_post' %}
+            <div class="instagram-post">
+              <img src="{{ block.settings.image | asset_url }}" alt="Instagram post">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .blog-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+  }
+  
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+  
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .blogs-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #4B5563; /* Adjusted color to match screenshot */
+  }
+
+  .blogs-badge .blog-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .section-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 120%;
+    color: #1B1F23;
+  }
+  
+  .view-all-link {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #1B1F23;
+    text-decoration: underline;
+    text-underline-offset: 4px; /* To match screenshot */
+    padding: 8px 0;
+    transition: color 0.3s ease;
+  }
+
+  .view-all-link:hover {
+    color: #4B5563;
+  }
+  
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Adjusted ratio for better visual balance */
+    gap: 24px;
+    margin-bottom: 60px; /* Adjusted margin */
+  }
+  
+  .featured-article {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative; /* For positioning content */
+    color: white;
+  }
+  
+  .featured-article .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  .featured-article .article-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); /* Gradient overlay for text readability */
+  }
+  
+  .article-category {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #E5E7EB; /* Adjusted for dark background */
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .featured-article .article-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 24px; /* Increased size */
+    line-height: 120%;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+  
+  .article-meta {
+    display: flex;
+    gap: 16px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #D1D5DB; /* Adjusted for dark background */
+  }
+  
+  .regular-articles {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Adjusted gap */
+  }
+  
+  .regular-article {
+    display: flex;
+    gap: 16px;
+    background: #ffffff;
+    padding: 0; /* Remove padding from container */
+  }
+  
+  .regular-article .article-image {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px; /* Added border radius */
+  }
+  
+  .regular-article .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .regular-article .article-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .regular-article .article-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    color: #1B1F23;
+    margin-bottom: 12px;
+  }
+
+  .regular-article .article-category {
+      color: #6B7280;
+  }
+
+  .regular-article .article-meta {
+      color: #6B7280;
+  }
+  
+  .instagram-section-wrapper {
+    padding-top: 40px; /* Spacing from blog section */
+  }
+  
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+
+  /* NEW: Styles for the header as a grid item */
+  .instagram-header-block {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      background-color: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 16px;
+  }
+
+  .instagram-logo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+  }
+
+  .instagram-logo-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #F3F4F6;
+  }
+
+  .instagram-logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+  
+  .instagram-handle {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #1B1F23;
+  }
+  
+  .follow-button {
+    padding: 12px 16px; /* Adjusted padding */
+    background-color: #ffffff;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #1B1F23;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 100%; /* Make button take full width */
+    text-align: center;
+  }
+  
+  .follow-button:hover {
+    background-color: #F9FAFB;
+    border-color: #9CA3AF;
+  }
+  
+  .instagram-post {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .instagram-post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .instagram-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .section-header {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    
+    .regular-article {
+      flex-direction: column;
+    }
+    
+    .regular-article .article-image {
+      width: 100%;
+      height: 180px;
+    }
+
+    .regular-article .article-content {
+        padding: 16px;
+    }
+    
+    .instagram-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .blog-section {
+      padding: 60px 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .section-title {
+      font-size: 28px;
+    }
+    
+    .instagram-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Blog Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Latest Articles"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Latest Articles"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Instagram Logo"
+    },
+    {
+      "type": "text",
+      "id": "instagram_handle",
+      "label": "Instagram Handle",
+      "default": "@uncmfrt.com"
+    },
+    {
+      "type": "text",
+      "id": "follow_button_text",
+      "label": "Follow Button Text",
+      "default": "Follow Us on Instagram"
+    },
+    {
+      "type": "url",
+      "id": "instagram_follow_link",
+      "label": "Instagram Follow Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_article",
+      "name": "Featured Article",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "image",
+          "label": "Article Image (from assets)",
+          "info": "Enter the filename from your assets folder (e.g., 'featured.jpg')"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Article Category",
+          "default": "Balanced Diet"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Article Title",
+          "default": "Article Title"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Emily Thompson"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Publication Date",
+          "default": "August 31, 2023"
+        }
+      ]
+    },
+    {
+      "type": "regular_article",
+      "name": "Regular Article",
+      "settings": [
+        {
+          "type": "text",
+          "id": "image",
+          "label": "Article Image (from assets)",
+          "info": "Enter the filename from your assets folder (e.g., 'article-1.jpg')"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Article Category",
+          "default": "Balanced Diet"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Article Title",
+          "default": "Article Title"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Emily Thompson"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Publication Date",
+          "default": "August 31, 2023"
+        }
+      ]
+    },
+    {
+      "type": "instagram_post",
+      "name": "Instagram Post",
+      "settings": [
+        {
+          "type": "text",
+          "id": "image",
+          "label": "Instagram Image (from assets)",
+          "info": "Enter the filename from your assets folder (e.g., 'insta-1.jpg')"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog & Instagram Section",
+      "blocks": [
+        {
+          "type": "featured_article"
+        },
+        {
+          "type": "regular_article"
+        },
+        {
+          "type": "regular_article"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        },
+        {
+          "type": "instagram_post"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

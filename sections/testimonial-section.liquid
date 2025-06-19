@@ -1,0 +1,371 @@
+<section class="testimonial-section" style="padding: 4rem 0; background-color: #f9f9f9; text-align: center;">
+  <div class="container" style="max-width: 1600px; margin: 0 auto; padding: 0 1rem;">
+    <div class="header-text text-center" style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1rem; color: #666; text-transform: uppercase; margin-bottom: 0.5rem;">{{ section.settings.subheading }}</h2>
+      <h1 class="heading-large" style="font-size: 2.5rem; font-weight: 700; color: #333; margin-bottom: 1rem;">{{ section.settings.heading }}</h1>
+      <a href="{{ section.settings.view_all_link }}" class="view-all" style="font-size: 0.9rem; color: #999; text-decoration: underline;">{{ section.settings.view_all_text }}</a>
+    </div>
+    
+    <div class="testimonial-slider" style="position: relative; display: flex; align-items: center; gap: 16px; overflow: hidden;">
+      <button class="nav-arrow prev" style="background: none; border: none; cursor: pointer; font-size: 0; padding: 0.5rem; position: absolute; left: -40px; z-index: 10;">
+        {% if section.settings.icon_arrow_left %}
+          <img src="{{ section.settings.icon_arrow_left | image_url: width: 24 }}" alt="Left Arrow" style="width: 24px; height: 24px; object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        {% endif %}
+      </button>
+      
+      <div class="testimonial-slides" style="display: flex; gap: 16px; transition: transform 0.5s ease; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+        {% for block in section.blocks %}
+          <div class="testimonial-item-wrapper" style="flex: 0 0 auto; width: 300px; height: 516px; position: relative;">
+            <div class="testimonial-item" {{ block.shopify_attributes }} style="width: 300px; height: 516px; background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); overflow: hidden; text-align: left; display: flex; flex-direction: column; transition: height 0.4s ease, top 0.4s ease, box-shadow 0.4s ease; position: absolute; top: 0; left: 0; z-index: 1; pointer-events: auto;">
+              <div class="testimonial-image" style="width: 100%; height: 420px; overflow: hidden;">
+                {% if block.settings.testimonial_image %}
+                  {{ block.settings.testimonial_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: block.settings.product_title, style: 'width: 100%; height: 100%; object-fit: cover; border-radius: 8px;' }}
+                {% else %}
+                  {{ 'testimonial-placeholder.png' | asset_url | image_tag: loading: 'lazy', alt: 'Testimonial placeholder', style: 'width: 100%; height: 100%; object-fit: cover; border-radius: 8px;' }}
+                {% endif %}
+              </div>
+              <div class="product-info" style="padding: 13px 1rem; display: flex; align-items: center; gap: 0.5rem; background: #fff; border-radius: 8px; width: 300px; height: 80px;">
+                <div class="product-thumbnail" style="flex-shrink: 0;">
+                  {% if block.settings.product_image %}
+                    {{ block.settings.product_image | image_url: width: 100 | image_tag: loading: 'lazy', alt: block.settings.product_title, style: 'width: 70px; height: 70px; object-fit: cover; border-radius: 5px;' }}
+                  {% else %}
+                    {{ 'product-thumbnail-placeholder.png' | asset_url | image_tag: loading: 'lazy', alt: 'Product thumbnail placeholder', style: 'width: 70px; height: 70px; object-fit: cover; border-radius: 5px;' }}
+                  {% endif %}
+                </div>
+                <div class="product-details" style="flex-grow: 1;">
+                  <h4 style="font-size: 1rem; font-weight: 600; color: #333; margin: 0;">{{ block.settings.product_title }}</h4>
+                  <p class="price" style="font-size: 0.9rem; color: #666; margin: 0.25rem 0 0;">${{ block.settings.product_price }}</p>
+                </div>
+                <button class="add-button" style="background: #1B1F23; border: none; cursor: pointer; font-size: 0; padding: 0.75rem; border-radius: 50%;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25rem; height: 1.25rem;">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              </div>
+              <!-- Additional content to show on hover -->
+              <div class="additional-content" style="padding: 1rem; background: #fff; color: #333; font-size: 0.9rem; height: 80px; opacity: 0; transition: opacity 0.4s ease;">
+                <p>{{ block.settings.product_title }} - Additional details or description here.</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <button class="nav-arrow next" style="background: none; border: none; cursor: pointer; font-size: 0; padding: 0.5rem; position: absolute; right: -40px; z-index: 10;">
+        {% if section.settings.icon_arrow_right %}
+          <img src="{{ section.settings.icon_arrow_right | image_url: width: 24 }}" alt="Right Arrow" style="width: 24px; height: 24px; object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        {% endif %}
+      </button>
+    </div>
+  </div>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .testimonial-item-wrapper {
+      width: 300px;
+      height: 516px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .testimonial-item {
+      width: 300px;
+      height: 516px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: height 0.4s ease, top 0.4s ease, box-shadow 0.4s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: auto;
+    }
+
+    .testimonial-item:hover {
+      height: 596px;
+      top: -40px; /* Expands upward by 40px, downward by 40px (80px total height increase) */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow for visual pop */
+      z-index: 10;
+    }
+
+    .testimonial-image {
+      width: 300px;
+      height: 420px;
+      border-radius: 8px;
+    }
+
+    .product-info {
+      height: 80px;
+      margin-top: 30px;
+
+
+    }
+
+    .additional-content {
+      height: 80px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+
+    }
+
+    .testimonial-item:hover .additional-content {
+      opacity: 1;
+    }
+
+    .testimonial-slides {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.5s ease;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1rem;
+    }
+
+    .testimonial-slides::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonial-slides {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .nav-arrow {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .add-button svg {
+      color: #fff;
+      width: 32;
+      height: 32;
+      
+
+    }
+
+    .product-thumbnail {
+      background-color: transparent;
+      border-radius: 5px;
+      padding: 0;
+    }
+
+    .product-thumbnail img {
+      display: block;
+      width: 50;
+      height: 50;
+      top: 531px;
+      left: 15px;
+
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 250px) {
+      .testimonial-section { padding: 2rem 0; }
+      .header-text h2 { font-size: 0.8rem; margin-bottom: 0.3rem; }
+      .heading-large { font-size: 1.5rem; margin-bottom: 0.5rem; }
+      .view-all { font-size: 0.7rem; }
+      .testimonial-item-wrapper { width: 150px; height: 300px; }
+      .testimonial-item { width: 150px; height: 300px; }
+      .testimonial-item:hover { height: 350px; top: -25px; }
+      .testimonial-image { height: 200px; }
+      .product-thumbnail img { width: 40px; height: 40px; }
+      .product-details h4 { font-size: 0.9rem; }
+      .price { font-size: 0.7rem; }
+      .nav-arrow.prev { left: -20px; }
+      .nav-arrow.next { right: -20px; }
+    }
+
+    @media (min-width: 251px) and (max-width: 576px) {
+      .testimonial-section { padding: 2.5rem 0; }
+      .header-text h2 { font-size: 0.9rem; margin-bottom: 0.4rem; }
+      .heading-large { font-size: 2rem; margin-bottom: 0.75rem; }
+      .view-all { font-size: 0.8rem; }
+      .testimonial-item-wrapper { width: 180px; height: 350px; }
+      .testimonial-item { width: 180px; height: 350px; }
+      .testimonial-item:hover { height: 410px; top: -30px; }
+      .testimonial-image { height: 250px; }
+      .product-thumbnail img { width: 45px; height: 45px; }
+      .product-details h4 { font-size: 0.95rem; }
+      .price { font-size: 0.8rem; }
+      .nav-arrow.prev { left: -30px; }
+      .nav-arrow.next { right: -30px; }
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+      .testimonial-section { padding: 3rem 0; }
+      .header-text h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+      .heading-large { font-size: 2.2rem; margin-bottom: 1rem; }
+      .view-all { font-size: 0.85rem; }
+      .testimonial-item-wrapper { width: 200px; height: 400px; }
+      .testimonial-item { width: 200px; height: 400px; }
+      .testimonial-item:hover { height: 460px; top: -30px; }
+      .testimonial-image { height: 300px; }
+      .product-thumbnail img { width: 50px; height: 50px; }
+      .nav-arrow.prev { left: -40px; }
+      .nav-arrow.next { right: -40px; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .testimonial-section { padding: 3.5rem 0; }
+      .header-text h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+      .heading-large { font-size: 2.5rem; margin-bottom: 1rem; }
+      .view-all { font-size: 0.9rem; }
+      .testimonial-item-wrapper { width: 220px; height: 450px; }
+      .testimonial-item { width: 220px; height: 450px; }
+      .testimonial-item:hover { height: 520px; top: -35px; }
+      .testimonial-image { height: 350px; }
+      .product-thumbnail img { width: 50px; height: 50px; }
+      .nav-arrow.prev { left: -40px; }
+      .nav-arrow.next { right: -40px; }
+    }
+
+    @media (min-width: 1025px) and (max-width: 2000px) {
+      .testimonial-section { padding: 4rem 0; }
+      .header-text h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+      .heading-large { font-size: 2.5rem; margin-bottom: 1rem; }
+      .view-all { font-size: 0.9rem; }
+      .testimonial-item-wrapper { width: 250px; height: 500px; }
+      .testimonial-item { width: 250px; height: 500px; }
+      .testimonial-item:hover { height: 580px; top: -40px; }
+      .testimonial-image { height: 400px; }
+      .product-thumbnail img { width: 60px; height: 60px; }
+      .product-details h4 { font-size: 1.1rem; }
+      .price { font-size: 0.95rem; }
+      .nav-arrow.prev { left: -50px; }
+      .nav-arrow.next { right: -50px; }
+    }
+
+    @media (min-width: 2001px) {
+      .testimonial-section { padding: 4.5rem 0; }
+      .header-text h2 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+      .heading-large { font-size: 3rem; margin-bottom: 1rem; }
+      .view-all { font-size: 1rem; }
+      .testimonial-item-wrapper { width: 300px; height: 516px; }
+      .testimonial-item { width: 300px; height: 516px; }
+      .testimonial-item:hover { height: 596px; top: -40px; }
+      .testimonial-image { height: 420px; }
+      .product-thumbnail img { width: 70px; height: 70px; }
+      .product-details h4 { font-size: 1.2rem; }
+      .price { font-size: 1rem; }
+      .nav-arrow.prev { left: -60px; }
+      .nav-arrow.next { right: -60px; }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slidesContainer = document.querySelector('.testimonial-slides');
+      const prevButton = document.querySelector('.nav-arrow.prev');
+      const nextButton = document.querySelector('.nav-arrow.next');
+      const testimonialItems = document.querySelectorAll('.testimonial-item');
+
+      const scrollSlider = (direction) => {
+        const itemWidth = testimonialItems.length > 0 ? testimonialItems[0].offsetWidth + 16 : 0;
+        if (direction === 'next') {
+          slidesContainer.scrollBy({ left: itemWidth, behavior: 'smooth' });
+        } else {
+          slidesContainer.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+        }
+      };
+
+      prevButton.addEventListener('click', () => scrollSlider('prev'));
+      nextButton.addEventListener('click', () => scrollSlider('next'));
+    });
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonial Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Trusted & Proven by Science"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Real People. Real Results."
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_arrow_left",
+      "label": "Left Arrow Icon",
+      "info": "Upload an image for the left navigation arrow."
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_arrow_right",
+      "label": "Right Arrow Icon",
+      "info": "Upload an image for the right navigation arrow."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "testimonial_image",
+          "label": "Testimonial Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product Title",
+          "default": "Magnesium L-Threonate"
+        },
+        {
+          "type": "text",
+          "id": "product_price",
+          "label": "Product Price",
+          "default": "49.95"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Section",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

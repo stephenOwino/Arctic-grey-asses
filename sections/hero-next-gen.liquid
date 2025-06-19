@@ -1,0 +1,282 @@
+{% comment %}
+  Hero Section - Next Generation Product Showcase
+  Place this in sections/hero-next-gen.liquid
+{% endcomment %}
+
+{%- style -%}
+  .hero-next-gen {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+
+  .hero-next-gen__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .hero-next-gen__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    z-index: 2;
+  }
+
+  .hero-next-gen__container {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+  }
+
+  .hero-next-gen__content {
+    max-width: 500px;
+    color: white;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .hero-next-gen__title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-next-gen__subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    font-weight: 400;
+    line-height: 1.5;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-next-gen__buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-next-gen__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-width: 160px;
+  }
+
+  .hero-next-gen__btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .hero-next-gen__btn:hover::before {
+    left: 100%;
+  }
+
+  .hero-next-gen__btn--primary {
+    background: #ffffff;
+    color: #1a1a1a;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-next-gen__btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+    background: #f8f8f8;
+  }
+
+  .hero-next-gen__btn--secondary {
+    background: transparent;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-next-gen__btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-next-gen__container {
+      padding: 0 1.5rem;
+    }
+    
+    .hero-next-gen__content {
+      max-width: 100%;
+    }
+    
+    .hero-next-gen__title {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .hero-next-gen__subtitle {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-next-gen__buttons {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .hero-next-gen__btn {
+      width: 100%;
+      max-width: 280px;
+      padding: 0.875rem 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-next-gen__title {
+      font-size: 2rem;
+    }
+    
+    .hero-next-gen__btn {
+      max-width: 100%;
+      font-size: 0.85rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="hero-next-gen">
+  {% if section.settings.background_image %}
+    {{ section.settings.background_image | image_url: width: 1920 | image_tag: loading: 'eager', alt: 'Hero background', class: 'hero-next-gen__background' }}
+  {% else %}
+    <img 
+      src="{{ 'hero-next-generation.jpg' | asset_url }}" 
+      alt="Hero background"
+      class="hero-next-gen__background"
+      loading="eager"
+    >
+  {% endif %}
+  
+  <div class="hero-next-gen__overlay"></div>
+  
+  <div class="hero-next-gen__container">
+    <div class="hero-next-gen__content">
+      <h1 class="hero-next-gen__title">
+        {{ section.settings.title | default: 'The Next Generation is Here' }}
+      </h1>
+      
+      <p class="hero-next-gen__subtitle">
+        {{ section.settings.subtitle | default: 'Innovative Engineering. Intelligent Design. Meet The Plunge All-I.' }}
+      </p>
+      
+      <div class="hero-next-gen__buttons">
+        <a href="{{ section.settings.primary_button_url | default: '#' }}" class="hero-next-gen__btn hero-next-gen__btn--primary">
+          {{ section.settings.primary_button_text | default: 'Take The Plunge' }}
+        </a>
+        
+        <a href="{{ section.settings.secondary_button_url | default: '#' }}" class="hero-next-gen__btn hero-next-gen__btn--secondary">
+          {{ section.settings.secondary_button_text | default: 'Dive Deeper' }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero - Next Generation",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Next Generation is Here"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Innovative Engineering. Intelligent Design. Meet The Plunge All-I."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Take The Plunge"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_url",
+      "label": "Primary Button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Dive Deeper"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero - Next Generation"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,171 @@
+/* Protein Powder Section */
+.protein-powder-section {
+  padding: 4rem 0;
+  background-color: var(--white);
+}
+
+.protein-powder-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.product-image-column {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.product-image-carousel {
+  width: 100%;
+  max-width: 500px;
+}
+
+.product-image {
+  width: 100%;
+  text-align: center;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.nav-arrow.prev {
+  position: absolute;
+  left: -60px;
+}
+
+.nav-arrow.next {
+  position: absolute;
+  right: -60px;
+}
+
+.product-info-column {
+  flex: 1;
+  max-width: 500px;
+}
+
+.product-info-header {
+  margin-bottom: 1.5rem;
+}
+
+.product-subtitle {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.heading-large {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.product-details-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-list {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--dark-text);
+}
+
+.feature-item svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--primary-color);
+}
+
+.ingredients-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.ingredients-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.ingredient-item svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--primary-color);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ingredient-item h5 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.ingredient-item p {
+  font-size: 0.875rem;
+  color: var(--medium-gray);
+  margin: 0;
+}
+
+.customize-button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.customize-button:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+@media (max-width: 768px) {
+  .protein-powder-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .product-image-column,
+  .product-info-column {
+    max-width: 100%;
+  }
+
+  .nav-arrow.prev {
+    left: 0;
+  }
+
+  .nav-arrow.next {
+    right: 0;
+  }
+}

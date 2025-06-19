@@ -1,0 +1,246 @@
+{% comment %}
+  File: sections/clean-supplements.liquid
+  Description: "Clean Supplements - Made For You" section for Shopify theme
+{% endcomment %}
+
+<section class="clean-supplements-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <p class="subtitle">{{ section.settings.subtitle }}</p>
+      <h2 class="main-title">{{ section.settings.title }}</h2>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="features-grid">
+      {% for block in section.blocks %}
+        <div class="feature-card">
+          <div class="icon-container">
+            <img 
+              src="{{ block.settings.icon | asset_url }}" 
+              alt="{{ block.settings.title | escape }}" 
+              class="feature-icon"
+            >
+          </div>
+          <h3 class="feature-title">{{ block.settings.title }}</h3>
+          <p class="feature-description">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .clean-supplements-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+  }
+  
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .subtitle {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: #F59E0B;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .subtitle::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #F59E0B;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .main-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 120%;
+    color: #1B1F23;
+    max-width: 400px;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    align-items: flex-start;
+  }
+  
+  .feature-card {
+    background: transparent;
+  }
+  
+  .icon-container {
+    width: 64px;
+    height: 64px;
+    background-color: #1B1F23;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  
+  .feature-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    color: #1B1F23;
+    margin-bottom: 12px;
+  }
+  
+  .feature-description {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: #6B7280;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    .main-title {
+      font-size: 28px;
+    }
+    
+    .clean-supplements-section {
+      padding: 60px 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .main-title {
+      font-size: 24px;
+    }
+    
+    .features-grid {
+      gap: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Clean Supplements",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Why Health & Fitness"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Clean Supplements - Made For You"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon Filename (from assets folder)",
+          "info": "Enter the filename of the icon from your assets folder (e.g., 'easy-icon.svg')"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Feature description text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clean Supplements",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "easy-icon.svg",
+            "title": "We Make It Easy",
+            "description": "Personalized Solutions & Guidance Mean You Get Just What You Need Nothing More"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "effective-icon.svg",
+            "title": "Clean & Effective",
+            "description": "Proven Ingredients, not Artificial, Crafted By Experts For Optimal Effectiveness"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "dietitian-icon.svg",
+            "title": "Your Free Dietitian",
+            "description": "Every Gainful Subscriber Gets Free, 1:1 Access Their Own Registered Dietitian."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "made-for-you-icon.svg",
+            "title": "Made For You",
+            "description": "Performance is Personal. Personalized & Customizable Products For Your Needs, Body & Goals"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

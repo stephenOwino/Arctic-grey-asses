@@ -1,0 +1,164 @@
+{%- comment -%}
+  Cart Drawer for UNCMFRT.CO
+  This appears when users click the cart icon in the header
+{%- endcomment -%}
+
+<link rel="stylesheet" href="{{ 'cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<div id="cart-drawer" class="cart-drawer">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">Your Bag {% if cart.item_count > 0 %}<span class="cart-drawer__count">{{ cart.item_count }}</span>{% endif %}</h2>
+    <button type="button" class="cart-drawer__close" aria-label="Close cart">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L15 15M1 15L15 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="cart-drawer__content">
+    {% if cart.item_count > 0 %}
+      <!-- Free shipping progress bar -->
+      {% assign free_shipping_threshold = 80 %}
+      {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart.total_price | divided_by: 100.0 %}
+      <div class="cart-drawer__shipping">
+        {% if remaining_for_free_shipping > 0 %}
+          <p class="cart-drawer__shipping-message">You are ${{ remaining_for_free_shipping | money_without_currency }} away from eligible for free shipping</p>
+        {% else %}
+          <p class="cart-drawer__shipping-message">You're eligible for free shipping!</p>
+        {% endif %}
+        
+        <div class="cart-drawer__shipping-progress">
+          {% assign progress_percentage = cart.total_price | divided_by: free_shipping_threshold | times: 100 %}
+          {% if progress_percentage > 100 %}
+            {% assign progress_percentage = 100 %}
+          {% endif %}
+          <div class="cart-drawer__shipping-progress-bar" style="width: {{ progress_percentage }}%"></div>
+        </div>
+        
+        <div class="cart-drawer__shipping-range">
+          <span>$0</span>
+          <span>${{ free_shipping_threshold | money_without_currency }}</span>
+        </div>
+      </div>
+      
+      <!-- Cart items -->
+      <div class="cart-drawer__items">
+        {% for item in cart.items %}
+          <div class="cart-drawer__item" data-variant-id="{{ item.variant_id }}">
+            <div class="cart-drawer__item-image">
+              <img src="{{ item.image | img_url: '120x120', crop: 'center' }}" alt="{{ item.title | escape }}">
+            </div>
+            <div class="cart-drawer__item-details">
+              <h3 class="cart-drawer__item-title">{{ item.product.title }}</h3>
+              <p class="cart-drawer__item-price">{{ item.final_price | money }}</p>
+              <div class="cart-drawer__item-quantity">
+                <button type="button" class="cart-drawer__quantity-btn cart-drawer__quantity-decrease" data-action="decrease">
+                  <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <input type="number" class="cart-drawer__quantity-input" value="{{ item.quantity }}" min="1" aria-label="Item quantity" data-key="{{ item.key }}">
+                <button type="button" class="cart-drawer__quantity-btn cart-drawer__quantity-increase" data-action="increase">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <button type="button" class="cart-drawer__subscribe-btn">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="9" cy="9" r="8.5" stroke="currentColor"/>
+                  <path d="M5 9L8 12L13 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Subscribe & Save 10%
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Recommended products -->
+      <div class="cart-drawer__recommendations">
+        <h3 class="cart-drawer__recommendations-title">Enhance Your Performance</h3>
+        <div class="cart-drawer__recommendations-controls">
+          <button type="button" class="cart-drawer__recommendation-arrow cart-drawer__recommendation-prev">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4L5 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="cart-drawer__recommendation-arrow cart-drawer__recommendation-next">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 4L15 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="cart-drawer__recommendations-list">
+          {% for product in recommendations.products %}
+            <div class="cart-drawer__recommendation">
+              <div class="cart-drawer__recommendation-image">
+                <img src="{{ product.featured_image | img_url: '200x200', crop: 'center' }}" alt="{{ product.title | escape }}">
+              </div>
+              <h4 class="cart-drawer__recommendation-title">{{ product.title }}</h4>
+              <p class="cart-drawer__recommendation-price">{{ product.price | money }}</p>
+              <button type="button" class="cart-drawer__recommendation-add" data-product-id="{{ product.id }}">
+                Add to Cart +
+              </button>
+            </div>
+          {% else %}
+            <!-- Placeholder products if recommendations not available -->
+            <div class="cart-drawer__recommendation">
+              <div class="cart-drawer__recommendation-image">
+                <img src="{{ 'placeholder-image.jpg' | asset_url }}" alt="Tongkat & Fadogia 60 Day Supply">
+              </div>
+              <h4 class="cart-drawer__recommendation-title">Tongkat & Fadogia 60 Day Supply</h4>
+              <p class="cart-drawer__recommendation-price">$49.95</p>
+              <button type="button" class="cart-drawer__recommendation-add">
+                Add to Cart +
+              </button>
+            </div>
+            <div class="cart-drawer__recommendation">
+              <div class="cart-drawer__recommendation-image">
+                <img src="{{ 'placeholder-image.jpg' | asset_url }}" alt="Male Hormone Support Bundle">
+              </div>
+              <h4 class="cart-drawer__recommendation-title">Male Hormone Support Bundle</h4>
+              <p class="cart-drawer__recommendation-price">$49.95</p>
+              <button type="button" class="cart-drawer__recommendation-add">
+                Add to Cart +
+              </button>
+            </div>
+            <div class="cart-drawer__recommendation">
+              <div class="cart-drawer__recommendation-image">
+                <img src="{{ 'placeholder-image.jpg' | asset_url }}" alt="Complete Bundle">
+              </div>
+              <h4 class="cart-drawer__recommendation-title">Complete Bundle</h4>
+              <p class="cart-drawer__recommendation-price">$49.95</p>
+              <button type="button" class="cart-drawer__recommendation-add">
+                Add to Cart +
+              </button>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Subtotal -->
+      <div class="cart-drawer__subtotal">
+        <h3 class="cart-drawer__subtotal-title">Subtotal</h3>
+        <p class="cart-drawer__subtotal-price">{{ cart.total_price | money }}</p>
+        <p class="cart-drawer__subtotal-note">Tax included. Shipping calculated at checkout.</p>
+      </div>
+      
+      <!-- Checkout button -->
+      <div class="cart-drawer__checkout">
+        <a href="/checkout" class="cart-drawer__checkout-button">Checkout</a>
+      </div>
+    {% else %}
+      <div class="cart-drawer__empty">
+        <p>Your cart is currently empty.</p>
+        <a href="/collections/all" class="cart-drawer__continue-shopping">Continue Shopping</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>

@@ -1,0 +1,1453 @@
+{% schema %}
+{
+  "name": "Supplements Slider",
+  "tag": "section",
+  "class": "supplements-section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Supplements"
+    },
+    {
+      "type": "text",
+      "id": "trending_label",
+      "label": "Trending Label",
+      "default": "Trending"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "supplement",
+      "name": "Supplement",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "is_bestseller",
+          "label": "Is Bestseller",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product Title",
+          "default": "Supplement"
+        },
+        {
+          "type": "textarea",
+          "id": "product_description",
+          "label": "Product Description",
+          "default": "Description"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_gmo_free",
+          "label": "GMO Free",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_gluten_free",
+          "label": "Gluten Free",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_vegan",
+          "label": "Vegan",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_dairy_free",
+          "label": "Dairy Free",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "product_price",
+          "label": "Product Price",
+          "default": "49.95"
+        },
+        {
+          "type": "url",
+          "id": "product_url",
+          "label": "Product URL"
+        },
+        {
+          "type": "html",
+          "id": "variants_data",
+          "label": "Variants JSON (See example in placeholder)",
+          "info": "Provide product variants as a JSON array. Example: [{\"name\":\"Small\",\"capsules\":\"30 Capsules\",\"price\":39.96,\"compare_at_price\":null,\"discount_percent\":0,\"total_price\":39.96},{\"name\":\"Medium\",\"capsules\":\"60 Capsules\",\"price\":39.96,\"compare_at_price\":null,\"discount_percent\":5,\"total_price\":37.96},{\"name\":\"Large\",\"capsules\":\"90 Capsules\",\"price\":39.96,\"compare_at_price\":null,\"discount_percent\":10,\"total_price\":35.96}]",
+          "placeholder": "[{\"name\":\"Small\",\"capsules\":\"30 Capsules\",\"price\":39.96,\"compare_at_price\":null,\"discount_percent\":0,\"total_price\":39.96},{\"name\":\"Medium\",\"capsules\":\"60 Capsules\",\"price\":39.96,\"compare_at_price\":null,\"discount_percent\":5,\"total_price\":37.96},{\"name\":\"Large\",\"capsules\":\"90 Capsules\",\"price\":39.96,\"compare_at_price\":null,\"discount_percent\":10,\"total_price\":35.96}]"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Supplements Slider",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f8fafc;
+    color: #1a202c;
+    line-height: 1.6;
+  }
+
+  .supplements-section {
+    padding: 4rem 0;
+    background-color: #f8fafc;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Header Section */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    margin: 0;
+  }
+
+  .nav-button:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .nav-button svg {
+    width: 20px;
+    height: 20px;
+    stroke: #374151;
+    stroke-width: 2;
+  }
+
+  .section-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .trending-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6B7280;
+    font-weight: 500;
+  }
+
+  .trending-icon {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .view-all-link {
+    color: #374151;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .view-all-link:hover {
+    color: #111827;
+    text-decoration: underline;
+  }
+
+  /* Slider Container */
+  .supplements-slider {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .supplements-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Product Cards */
+  .product-card {
+    flex: 0 0 280px;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    max-height: 400px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-10px); /* Adjusted to match screenshot hover effect */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Adjusted shadow for stronger effect */
+  }
+
+  /* Bestseller Badge */
+  .bestseller-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #FEF3C7;
+    color: #92400E;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    z-index: 10;
+  }
+
+  /* Product Image */
+  .product-image-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F9FAFB;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .no-image-placeholder {
+    width: 120px;
+    height: 120px;
+    background: #E5E7EB;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9CA3AF;
+    font-size: 0.875rem;
+  }
+
+  /* Product Badges */
+  .product-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    color: #6B7280;
+  }
+
+  .product-badge {
+    display: flex;
+    align-items: center;
+  }
+
+  .badge-dot {
+    width: 4px;
+    height: 4px;
+    background: #374151;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+  }
+
+  /* Product Info */
+  .product-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .product-description {
+    color: #6B7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* Star Rating */
+  .star-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    gap: 2px;
+  }
+
+  .star-image {
+    width: 80px;
+    height: 16px;
+    object-fit: contain;
+  }
+
+  /* Purchase Options */
+  .purchase-options {
+    position: absolute;
+    bottom: 4rem;
+    width: 100%;
+    display: none;
+  }
+
+  .product-card:hover .purchase-options {
+    display: block;
+  }
+
+  .purchase-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .radio-custom {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #D1D5DB;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .radio-dot {
+    width: 8px;
+    height: 8px;
+    background: #111827;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .radio-input:checked + .radio-custom {
+    border-color: #111827;
+  }
+
+  .radio-input:checked + .radio-custom .radio-dot {
+    opacity: 1;
+  }
+
+  .option-text {
+    font-size: 0.875rem;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .subscription-icon {
+    width: 12px;
+    height: 12px;
+    fill: #111827;
+  }
+
+  .price-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .price {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .save-badge {
+    background: #DCFCE7;
+    color: #166534;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  /* Add to Cart Button */
+  .add-to-cart-btn {
+    width: 100%;
+    background: #111827;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.875rem;
+    text-align: center;
+    position: absolute;
+    bottom: 1.5rem;
+  }
+
+  .product-card:not(:hover) .add-to-cart-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: block;
+    position: absolute;
+    bottom: 1.5rem;
+  }
+
+  .add-to-cart-btn:hover {
+    background: #374151;
+  }
+
+  .add-to-cart-btn:active {
+    transform: translateY(1px);
+  }
+
+  /* View Details Link */
+  .view-details-link {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 100%;
+    text-align: center;
+    color: #6B7280;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .product-card:hover .view-details-link {
+    opacity: 1;
+  }
+
+  .view-details-link:hover {
+    color: #374151;
+  }
+
+  /* Notification */
+  .add-to-cart-notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #111827;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    z-index: 10000;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  /* Side Drawer Styles */
+  .product-side-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 450px;
+    max-width: 90vw;
+    height: 100%;
+    background-color: white;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+
+  .product-side-drawer.open {
+    transform: translateX(0);
+  }
+
+  .drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+
+  .drawer-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .drawer-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6B7280;
+  }
+
+  .drawer-product-image-wrapper {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .drawer-product-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+  }
+
+  .drawer-product-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+  }
+
+  .drawer-star-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 2px;
+  }
+
+  .drawer-product-description {
+    color: #4B5563;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .drawer-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    color: #6B7280;
+  }
+
+  .drawer-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .drawer-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #374151;
+    border-radius: 50%;
+  }
+
+  .drawer-options-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .drawer-variant-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .drawer-variant-table th,
+  .drawer-variant-table td {
+    padding: 0.75rem 0;
+    text-align: left;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .drawer-variant-table th {
+    color: #6B7280;
+    font-weight: 500;
+  }
+
+  .drawer-variant-table td {
+    color: #111827;
+  }
+
+  .drawer-variant-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .drawer-variant-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .drawer-radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .drawer-radio-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #D1D5DB;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .drawer-radio-dot {
+    width: 10px;
+    height: 10px;
+    background: #111827;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .drawer-radio-input:checked + .drawer-radio-custom {
+    border-color: #111827;
+  }
+
+  .drawer-radio-input:checked + .drawer-radio-custom .drawer-radio-dot {
+    opacity: 1;
+  }
+
+  .drawer-discount-badge {
+    background: #DCFCE7;
+    color: #166534;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+  }
+
+  .drawer-quantity-picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .drawer-quantity-picker label {
+    font-weight: 500;
+    color: #111827;
+  }
+
+  .drawer-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .drawer-quantity-btn {
+    background: none;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .drawer-quantity-btn:hover {
+    background-color: #F3F4F6;
+  }
+
+  .drawer-quantity-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .drawer-quantity-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #111827;
+  }
+
+  .drawer-subscribe-save {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .drawer-subscribe-save h4 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .drawer-purchase-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .drawer-purchase-option:last-child {
+    margin-bottom: 0;
+  }
+
+  .drawer-option-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .drawer-option-text {
+    font-size: 0.9rem;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .drawer-price-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .drawer-price {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .drawer-add-to-cart-sticky {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 1rem 0;
+    border-top: 1px solid #E5E7EB;
+    text-align: center;
+    margin: 0 -2rem -2rem -2rem;
+    padding: 1rem 2rem;
+  }
+
+  .drawer-subtotal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .drawer-total-items {
+    font-size: 0.875rem;
+    color: #6B7280;
+    margin-bottom: 0.5rem;
+  }
+
+  .drawer-shipping-info {
+    font-size: 0.75rem;
+    color: #6B7280;
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+
+  .drawer-add-to-cart-btn {
+    width: 100%;
+    background: #111827;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 1rem;
+  }
+
+  .drawer-add-to-cart-btn:hover {
+    background: #374151;
+  }
+
+  .drawer-view-full-details {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .drawer-view-full-details a {
+    color: #6B7280;
+    font-size: 0.875rem;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .product-side-drawer {
+      width: 100vw;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="section-header">
+    <div class="header-left">
+      <button class="nav-button slider-prev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="section-title-wrapper">
+        <div class="trending-label">
+          <span class="trending-icon">✨</span>
+          <span>{{ section.settings.trending_label }}</span>
+        </div>
+        <h2 class="section-title">{{ section.settings.section_title }}</h2>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="nav-button slider-next" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <a href="{{ section.settings.view_all_url }}" class="view-all-link">View All</a>
+    </div>
+  </div>
+
+  <div class="supplements-slider" role="region" aria-label="Supplements carousel">
+    {% for block in section.blocks %}
+      <div class="product-card"
+           data-id="{{ block.id }}"
+           data-name="{{ block.settings.product_title | escape }}"
+           data-price="{{ block.settings.product_price }}"
+           data-image="{{ block.settings.product_image | img_url: '200x200' }}"
+           data-handle="{{ block.id }}"
+           data-variant-id="{{ block.id }}"
+           data-description="{{ block.settings.product_description | escape }}"
+           data-gmo-free="{{ block.settings.is_gmo_free }}"
+           data-gluten-free="{{ block.settings.is_gluten_free }}"
+           data-vegan="{{ block.settings.is_vegan }}"
+           data-dairy-free="{{ block.settings.is_dairy_free }}"
+           data-product-url="{{ block.settings.product_url | default: '#' }}"
+           data-variants-data="{{ block.settings.variants_data | escape }}">
+        {% if block.settings.is_bestseller %}
+          <span class="bestseller-badge">Bestseller</span>
+        {% endif %}
+
+        <div class="product-image-container">
+          {% if block.settings.product_image %}
+            <img src="{{ block.settings.product_image | img_url: '160x160' }}"
+                 alt="{{ block.settings.product_title | escape }}"
+                 class="product-image"
+                 loading="lazy">
+          {% else %}
+            <div class="no-image-placeholder">No Image</div>
+          {% endif %}
+        </div>
+
+        <div class="product-badges">
+          {% if block.settings.is_gmo_free %}
+            <span class="product-badge">
+              <span class="badge-dot"></span>
+              GMO Free
+            </span>
+          {% endif %}
+          {% if block.settings.is_gluten_free %}
+            <span class="product-badge">
+              <span class="badge-dot"></span>
+              Gluten Free
+            </span>
+          {% endif %}
+          {% if block.settings.is_vegan %}
+            <span class="product-badge">
+              <span class="badge-dot"></span>
+              Vegan
+            </span>
+          {% endif %}
+          {% if block.settings.is_dairy_free %}
+            <span class="product-badge">
+              <span class="badge-dot"></span>
+              Dairy Free
+            </span>
+          {% endif %}
+        </div>
+
+        <h3 class="product-title">{{ block.settings.product_title }}</h3>
+        <p class="product-description">{{ block.settings.product_description }}</p>
+
+        <div class="star-rating" aria-label="5 out of 5 stars">
+          <img src="{{ 'stars.jpg' | asset_url }}" alt="5 out of 5 stars" class="star-image" loading="lazy">
+        </div>
+
+        <div class="purchase-options">
+          <label class="purchase-option">
+            <div class="option-label">
+              <input type="radio" name="purchase-{{ forloop.index }}" value="one-time" class="radio-input">
+              <span class="radio-custom">
+                <span class="radio-dot"></span>
+              </span>
+              <span class="option-text">One-Time Purchase</span>
+            </div>
+            <span class="price">${{ block.settings.product_price }}</span>
+          </label>
+          <label class="purchase-option">
+            <div class="option-label">
+              <input type="radio" name="purchase-{{ forloop.index }}" value="subscribe" class="radio-input" checked>
+              <span class="radio-custom">
+                <span class="radio-dot"></span>
+              </span>
+              <span class="option-text">Subscribe & Save
+                <svg class="subscription-icon" viewBox="0 0 12 12">
+                  <path d="M6 0C2.686 0 0 2.686 0 6s2.686 6 6 6 6-2.686 6-6-2.686-6-6-6zm0 11c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm-1.5-5h3v1.5h-3V6zm0-3h3v1.5h-3V3z" fill="currentColor"/>
+                </svg>
+              </span>
+            </div>
+            <div class="price-display">
+              <span class="price">${{ block.settings.product_price | times: 0.9 | round: 2 }}</span>
+              <span class="save-badge">Save 10%</span>
+            </div>
+          </label>
+        </div>
+
+        <button class="add-to-cart-btn"
+                data-product-id="{{ block.id }}"
+                data-product-title="{{ block.settings.product_title | escape }}"
+                data-product-image="{{ block.settings.product_image | img_url: '200x200' }}"
+                data-product-price="{{ block.settings.product_price }}"
+                data-product-url="{{ block.settings.product_url | default: '#' }}"
+                data-variant-id="{{ block.id }}"
+                data-card-index="{{ forloop.index }}"
+                aria-label="Add {{ block.settings.product_title | escape }} to cart">
+          Add • ${{ block.settings.product_price | times: 0.9 | round: 2 }}
+        </button>
+
+        <a href="{{ block.settings.product_url | default: '#' }}" class="view-details-link">View Full Details</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="product-side-drawer">
+  <button class="drawer-close-btn" aria-label="Close product details">
+    <svg xmlns="http://www.w3/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <div class="drawer-product-image-wrapper">
+    <img src="" alt="" class="drawer-product-image">
+  </div>
+  <h3 class="drawer-product-title"></h3>
+  <div class="drawer-star-rating" aria-label="5 out of 5 stars">
+    <img src="{{ 'stars.jpg' | asset_url }}" alt="5 out of 5 stars" class="star-image" loading="lazy">
+  </div>
+  <p class="drawer-product-description"></p>
+  <div class="drawer-badges"></div>
+  <div class="drawer-options-section">
+    <h4>Variant</h4>
+    <table class="drawer-variant-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Discount</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody class="drawer-variants-container"></tbody>
+    </table>
+  </div>
+  <div class="drawer-quantity-picker">
+    <label for="drawer-quantity">Quantity</label>
+    <div class="drawer-quantity-controls">
+      <button class="drawer-quantity-btn drawer-quantity-minus">
+        <img src="{{ 'icon-minus.svg' | asset_url }}" alt="Minus">
+      </button>
+      <input type="text" id="drawer-quantity" class="drawer-quantity-input" value="1" readonly>
+      <button class="drawer-quantity-btn drawer-quantity-plus">
+        <img src="{{ 'icon-plus.svg' | asset_url }}" alt="Plus">
+      </button>
+    </div>
+  </div>
+  <div class="drawer-subscribe-save">
+    <h4>Subscribe & Save</h4>
+    <label class="drawer-purchase-option">
+      <div class="drawer-option-label">
+        <input type="radio" name="drawer-purchase-option" value="one-time" class="drawer-radio-input" id="drawer-one-time-purchase">
+        <span class="drawer-radio-custom">
+          <span class="drawer-radio-dot"></span>
+        </span>
+        <span class="drawer-option-text">One-Time Purchase</span>
+      </div>
+      <span class="drawer-price">$<span class="drawer-one-time-price"></span></span>
+    </label>
+    <label class="drawer-purchase-option">
+      <div class="drawer-option-label">
+        <input type="radio" name="drawer-purchase-option" value="subscribe" class="drawer-radio-input" id="drawer-subscribe-purchase" checked>
+        <span class="drawer-radio-custom">
+          <span class="drawer-radio-dot"></span>
+        </span>
+        <span class="drawer-option-text">Subscribe & Save
+          <svg class="subscription-icon" viewBox="0 0 12 12">
+            <path d="M6 0C2.686 0 0 2.686 0 6s2.686 6 6 6 6-2.686 6-6-2.686-6-6-6zm0 11c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm-1.5-5h3v1.5h-3V6zm0-3h3v1.5h-3V3z" fill="currentColor"/>
+          </svg>
+        </span>
+      </div>
+      <div class="drawer-price-display">
+        <span class="drawer-price">$<span class="drawer-subscribe-price"></span></span>
+        <span class="save-badge">Save 10%</span>
+      </div>
+    </label>
+    <select name="delivery-every" id="delivery-every" class="delivery-dropdown">
+      <option value="2">Delivery Every 2 Months</option>
+      <option value="1">Delivery Every 1 Month</option>
+      <option value="3">Delivery Every 3 Months</option>
+    </select>
+  </div>
+  <div class="drawer-add-to-cart-sticky">
+    <div class="drawer-subtotal">
+      <span>Product Subtotal</span>
+      $<span class="drawer-subtotal-price">0.00</span>
+    </div>
+    <div class="drawer-total-items">
+      <span class="drawer-cart-total-items">0</span> Total Items
+    </div>
+    <p class="drawer-shipping-info">Taxes & shipping calculated at checkout</p>
+    <button class="drawer-add-to-cart-btn">
+      Add to Cart - $<span class="drawer-final-price">0.00</span>
+    </button>
+    <div class="drawer-view-full-details">
+      <a href="#" class="drawer-view-details-link">View Full Details</a>
+    </div>
+  </div>
+</div>
+
+<div class="drawer-overlay"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Slider functionality
+    const prevBtn = document.querySelector('.slider-prev');
+    const nextBtn = document.querySelector('.slider-next');
+    const slider = document.querySelector('.supplements-slider');
+
+    if (prevBtn && nextBtn && slider) {
+      prevBtn.addEventListener('click', function() {
+        slider.scrollBy({ left: -320, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', function() {
+        slider.scrollBy({ left: 320, behavior: 'smooth' });
+      });
+    }
+
+    // Radio button functionality for product cards
+    document.querySelectorAll('.radio-input').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const card = this.closest('.product-card');
+        const button = card.querySelector('.add-to-cart-btn');
+        const basePrice = parseFloat(card.dataset.price);
+
+        const groupName = this.name;
+        const allRadios = document.querySelectorAll(`input[name="${groupName}"]`);
+        allRadios.forEach(r => {
+          const customRadio = r.nextElementSibling.querySelector('.radio-dot');
+          const customBorder = r.nextElementSibling;
+          if (r.checked) {
+            customRadio.style.opacity = '1';
+            customBorder.style.borderColor = '#111827';
+          } else {
+            customRadio.style.opacity = '0';
+            customBorder.style.borderColor = '#D1D5DB';
+          }
+        });
+
+        if (this.value === 'subscribe') {
+          const discountedPrice = (basePrice * 0.9).toFixed(2);
+          button.textContent = `Add • $${discountedPrice}`;
+          card.dataset.price = discountedPrice;
+          button.dataset.subscription = 'true';
+        } else {
+          button.textContent = `Add • $${basePrice.toFixed(2)}`;
+          card.dataset.price = basePrice;
+          button.dataset.subscription = 'false';
+        }
+      });
+    });
+
+    // Add to cart button functionality for product cards
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const card = this.closest('.product-card');
+        if (!card) return;
+
+        const formData = {
+          id: card.dataset.variantId,
+          quantity: 1,
+          properties: {
+            _subscription: this.dataset.subscription === 'true' ? 'true' : 'false',
+            _image: card.dataset.image,
+            _title: card.dataset.name,
+            _price: card.dataset.price,
+            _url: card.dataset.productUrl,
+            _variant_id: card.dataset.variantId
+          }
+        };
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          showAddToCartFeedback(card.dataset.name);
+          if (window.Shopify && Shopify.cart) {
+            Shopify.cart.load();
+          }
+        })
+        .catch(error => {
+          console.error('Error adding to cart:', error);
+        });
+      });
+    });
+
+    // Show add to cart feedback
+    function showAddToCartFeedback(productTitle) {
+      const notification = document.createElement('div');
+      notification.className = 'add-to-cart-notification';
+      notification.innerHTML = `<div class="notification-content"><span>✓ ${productTitle} added to cart</span></div>`;
+
+      document.body.appendChild(notification);
+      setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    // Initialize radio buttons
+    document.querySelectorAll('.radio-input:checked').forEach(radio => {
+      radio.dispatchEvent(new Event('change'));
+    });
+
+    // Side Drawer Functionality
+    const sideDrawer = document.querySelector('.product-side-drawer');
+    const drawerOverlay = document.querySelector('.drawer-overlay');
+    const drawerCloseBtn = document.querySelector('.drawer-close-btn');
+    const drawerProductImage = sideDrawer.querySelector('.drawer-product-image');
+    const drawerProductTitle = sideDrawer.querySelector('.drawer-product-title');
+    const drawerProductDescription = sideDrawer.querySelector('.drawer-product-description');
+    const drawerBadgesContainer = sideDrawer.querySelector('.drawer-badges');
+    const drawerVariantsContainer = sideDrawer.querySelector('.drawer-variants-container');
+    const drawerQuantityInput = sideDrawer.querySelector('.drawer-quantity-input');
+    const drawerQuantityMinusBtn = sideDrawer.querySelector('.drawer-quantity-minus');
+    const drawerQuantityPlusBtn = sideDrawer.querySelector('.drawer-quantity-plus');
+    const drawerOneTimePriceSpan = sideDrawer.querySelector('.drawer-one-time-price');
+    const drawerSubscribePriceSpan = sideDrawer.querySelector('.drawer-subscribe-price');
+    const drawerFinalPriceSpan = sideDrawer.querySelector('.drawer-final-price');
+    const drawerAddToCartBtn = sideDrawer.querySelector('.drawer-add-to-cart-btn');
+    const drawerSubtotalPriceSpan = sideDrawer.querySelector('.drawer-subtotal-price');
+    const drawerCartTotalItemsSpan = sideDrawer.querySelector('.drawer-cart-total-items');
+    const drawerSubscribeRadio = sideDrawer.querySelector('#drawer-subscribe-purchase');
+    const drawerOneTimeRadio = sideDrawer.querySelector('#drawer-one-time-purchase');
+    const drawerDeliveryDropdown = sideDrawer.querySelector('#delivery-every');
+    const drawerProductUrlLink = sideDrawer.querySelector('.drawer-view-details-link');
+
+    let currentProductData = {};
+    let selectedVariant = null;
+
+    function openSideDrawer(productData) {
+      currentProductData = productData;
+
+      drawerProductImage.src = productData.image;
+      drawerProductImage.alt = productData.name;
+      drawerProductTitle.textContent = productData.name;
+      drawerProductDescription.textContent = productData.description;
+      drawerProductUrlLink.href = productData.productUrl;
+
+      drawerBadgesContainer.innerHTML = '';
+      ['gmoFree', 'glutenFree', 'vegan', 'dairyFree'].forEach(badge => {
+        if (productData[badge] === 'true') {
+          drawerBadgesContainer.innerHTML += `<span class="drawer-badge"><span class="drawer-badge-dot"></span>${badge.replace('_', ' ').replace(/([A-Z])/g, ' $1').trim()}</span>`;
+        }
+      });
+
+      drawerVariantsContainer.innerHTML = '';
+      let variants = [];
+      try {
+        variants = JSON.parse(productData.variantsData);
+      } catch (e) {
+        console.error("Error parsing variants data:", e);
+        variants = [{name: 'Default', capsules: '1 Unit', price: parseFloat(productData.price), compare_at_price: null, discount_percent: 0, total_price: parseFloat(productData.price)}];
+      }
+
+      variants.forEach((variant, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><label class="drawer-variant-item"><input type="radio" name="drawer-variant" value="${index}" class="drawer-radio-input" ${index === 0 ? 'checked' : ''}><span class="drawer-radio-custom"><span class="drawer-radio-dot"></span></span><span>${variant.name}</span></label></td>
+          <td>${variant.capsules}</td>
+          <td>$${variant.price.toFixed(2)}</td>
+          <td>${variant.discount_percent > 0 ? variant.discount_percent + '%' : '0%'}</td>
+          <td>$${variant.total_price.toFixed(2)}</td>
+        `;
+        drawerVariantsContainer.appendChild(row);
+      });
+
+      selectedVariant = variants[0];
+      updateDrawerPrices();
+      updateDrawerAddToCartButton();
+
+      drawerVariantsContainer.querySelectorAll('input[name="drawer-variant"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          const variantIndex = parseInt(this.value);
+          selectedVariant = variants[variantIndex];
+          updateDrawerPrices();
+          updateDrawerAddToCartButton();
+        });
+      });
+
+      drawerQuantityInput.value = 1;
+
+      sideDrawer.classList.add('open');
+      drawerOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSideDrawer() {
+      sideDrawer.classList.remove('open');
+      drawerOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateDrawerPrices() {
+      if (!selectedVariant) return;
+      const quantity = parseInt(drawerQuantityInput.value);
+      const oneTimePrice = selectedVariant.price * quantity;
+      const subscribePrice = (selectedVariant.price * 0.9) * quantity;
+
+      drawerOneTimePriceSpan.textContent = oneTimePrice.toFixed(2);
+      drawerSubscribePriceSpan.textContent = subscribePrice.toFixed(2);
+
+      if (drawerSubscribeRadio.checked) {
+        drawerFinalPriceSpan.textContent = subscribePrice.toFixed(2);
+        drawerSubtotalPriceSpan.textContent = subscribePrice.toFixed(2);
+      } else {
+        drawerFinalPriceSpan.textContent = oneTimePrice.toFixed(2);
+        drawerSubtotalPriceSpan.textContent = oneTimePrice.toFixed(2);
+      }
+      drawerCartTotalItemsSpan.textContent = quantity;
+      updateDrawerAddToCartButton();
+    }
+
+    function updateDrawerAddToCartButton() {
+      const quantity = parseInt(drawerQuantityInput.value);
+      const isSubscription = drawerSubscribeRadio.checked;
+      let priceToDisplay = isSubscription ? (selectedVariant.price * 0.9 * quantity) : (selectedVariant.price * quantity);
+      drawerAddToCartBtn.textContent = `Add to Cart - $${priceToDisplay.toFixed(2)}`;
+    }
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const productData = {
+          id: this.dataset.id,
+          name: this.dataset.name,
+          price: this.dataset.price,
+          image: this.dataset.image,
+          description: this.dataset.description,
+          gmoFree: this.dataset.gmoFree,
+          glutenFree: this.dataset.glutenFree,
+          vegan: this.dataset.vegan,
+          dairyFree: this.dataset.dairyFree,
+          productUrl: this.dataset.productUrl,
+          variantsData: this.dataset.variantsData
+        };
+        openSideDrawer(productData);
+      });
+    });
+
+    drawerCloseBtn.addEventListener('click', closeSideDrawer);
+    drawerOverlay.addEventListener('click', closeSideDrawer);
+
+    drawerQuantityMinusBtn.addEventListener('click', function() {
+      let quantity = parseInt(drawerQuantityInput.value);
+      if (quantity > 1) {
+        drawerQuantityInput.value = quantity - 1;
+        updateDrawerPrices();
+      }
+    });
+
+    drawerQuantityPlusBtn.addEventListener('click', function() {
+      let quantity = parseInt(drawerQuantityInput.value);
+      drawerQuantityInput.value = quantity + 1;
+      updateDrawerPrices();
+    });
+
+    document.querySelectorAll('input[name="drawer-purchase-option"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('input[name="drawer-purchase-option"]').forEach(r => {
+          const customRadio = r.nextElementSibling.querySelector('.drawer-radio-dot');
+          const customBorder = r.nextElementSibling;
+          if (r.checked) {
+            customRadio.style.opacity = '1';
+            customBorder.style.borderColor = '#111827';
+          } else {
+            customRadio.style.opacity = '0';
+            customBorder.style.borderColor = '#D1D5DB';
+          }
+        });
+        updateDrawerPrices();
+      });
+    });
+
+    drawerSubscribeRadio.dispatchEvent(new Event('change'));
+
+    drawerAddToCartBtn.addEventListener('click', function() {
+      if (!selectedVariant) {
+        console.error("No variant selected.");
+        return;
+      }
+      const quantity = parseInt(drawerQuantityInput.value);
+      const isSubscription = drawerSubscribeRadio.checked;
+      const deliveryFrequency = drawerDeliveryDropdown.value;
+      let finalPrice = isSubscription ? (selectedVariant.price * 0.9 * quantity) : (selectedVariant.price * quantity);
+
+      const formData = {
+        id: selectedVariant.variantId || currentProductData.id,
+        quantity: quantity,
+        properties: {
+          _subscription: isSubscription ? 'true' : 'false',
+          _image: currentProductData.image,
+          _title: currentProductData.name,
+          _price: finalPrice.toFixed(2),
+          _url: currentProductData.productUrl,
+          _variant_name: selectedVariant.name,
+          _capsules: selectedVariant.capsules,
+          _delivery_frequency: isSubscription ? `${deliveryFrequency} Months` : 'N/A'
+        }
+      };
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        showAddToCartFeedback(currentProductData.name);
+        if (window.Shopify && Shopify.cart) {
+          Shopify.cart.load();
+        }
+        closeSideDrawer();
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error);
+      });
+    });
+  });
+</script>
