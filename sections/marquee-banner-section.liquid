@@ -1,9 +1,5 @@
-{%- comment -%}
-  Marquee Banner Section with Trust Badges and Logos
-{%- endcomment -%}
-
+<!-- sections/marquee-banner.liquid -->
 <style>
-  /* Marquee Section */
   .marquee {
     position: relative;
     width: 100%;
@@ -11,65 +7,34 @@
     overflow: hidden;
     display: flex;
     white-space: nowrap;
-    padding: 12px 0;
+    padding: 16px 0;
   }
 
   .marquee__content {
     display: flex;
-    animation: marquee {{ section.settings.marquee_speed }}s linear infinite;
     align-items: center;
+    gap: 40px;
+    animation: marquee 60s linear infinite;
+    width: max-content;
   }
 
   .marquee__item {
     display: flex;
     align-items: center;
     color: #FFFFFF;
-    margin: 0 30px;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 500;
     font-size: 14px;
     flex-shrink: 0;
-  }
-
-  .marquee__item--trust-badge {
+    white-space: nowrap;
     gap: 8px;
   }
 
-  .marquee__item--logo {
-    margin: 0 25px;
-  }
-
-  .marquee__item svg,
-  .marquee__item img {
-    flex-shrink: 0;
-  }
-
-  .marquee__trust-icon {
+  .marquee__icon {
     width: 16px;
     height: 16px;
-  }
-
-  .marquee__logo {
-    height: 24px;
-    width: auto;
-    filter: brightness(0) invert(1); /* Makes logos white */
-  }
-
-  .marquee__stars {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin: 0 30px;
-  }
-
-  .marquee__star {
-    width: 14px;
-    height: 14px;
-  }
-
-  .marquee__rating-text {
-    margin-left: 8px;
-    font-size: 13px;
+    color: #fff;
+    flex-shrink: 0;
   }
 
   @keyframes marquee {
@@ -77,181 +42,276 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-25%);
     }
   }
 
-  /* Pause animation on hover if enabled */
-  {% if section.settings.pause_on_hover %}
   .marquee:hover .marquee__content {
     animation-play-state: paused;
   }
-  {% endif %}
+
+  @media (max-width: 768px) {
+    .marquee {
+      padding: 12px 0;
+    }
+    
+    .marquee__content {
+      gap: 30px;
+      animation-duration: 45s;
+    }
+    
+    .marquee__item {
+      font-size: 12px;
+    }
+    
+    .marquee__icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .marquee {
+      padding: 10px 0;
+    }
+    
+    .marquee__content {
+      gap: 25px;
+      animation-duration: 35s;
+    }
+    
+    .marquee__item {
+      font-size: 11px;
+    }
+    
+    .marquee__icon {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .marquee {
+      padding: 8px 0;
+    }
+    
+    .marquee__content {
+      gap: 20px;
+      animation-duration: 30s;
+    }
+    
+    .marquee__item {
+      font-size: 10px;
+    }
+    
+    .marquee__icon {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  @media (max-width: 250px) {
+    .marquee {
+      padding: 6px 0;
+    }
+    
+    .marquee__content {
+      gap: 15px;
+      animation-duration: 25s;
+    }
+    
+    .marquee__item {
+      font-size: 9px;
+    }
+    
+    .marquee__icon {
+      width: 8px;
+      height: 8px;
+    }
+  }
 </style>
 
-<!-- Marquee Section -->
-{% if section.settings.enable_marquee %}
 <section class="marquee">
   <div class="marquee__content">
-    {% comment %} Repeat content twice for seamless loop {% endcomment %}
-    {% for repeat in (1..2) %}
-      
-      {% comment %} Trust Badges {% endcomment %}
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'trust_badge' %}
-            <div class="marquee__item marquee__item--trust-badge">
-              {% if block.settings.icon != blank %}
-                <img src="{{ block.settings.icon | asset_url }}" 
-                     alt="{{ block.settings.text }}" 
-                     class="marquee__trust-icon">
-              {% else %}
-                {% comment %} Default star icon if no custom icon {% endcomment %}
-                <svg class="marquee__trust-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z" fill="#FFB800"/>
-                </svg>
-              {% endif %}
-              {{ block.settings.text }}
-            </div>
-          
-          {% when 'brand_logo' %}
-            <div class="marquee__item marquee__item--logo">
-              {% if block.settings.logo != blank %}
-                <img src="{{ block.settings.logo | asset_url }}" 
-                     alt="{{ block.settings.brand_name }}" 
-                     class="marquee__logo">
-              {% endif %}
-            </div>
-          
-          {% when 'star_rating' %}
-            <div class="marquee__stars">
-              {% for i in (1..5) %}
-                <svg class="marquee__star" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z" fill="#FFB800"/>
-                </svg>
-              {% endfor %}
-              <span class="marquee__rating-text">{{ block.settings.rating_text }}</span>
-            </div>
-        {% endcase %}
-      {% endfor %}
-      
-    {% endfor %}
+    {% comment %} First set of content {% endcomment %}
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_1 | default: 'High Quality Ingredients' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_2 | default: 'Independently Certified' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_3 | default: 'Expert Driven' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_4 | default: 'Shipped Internationally' }}
+    </div>
+
+    {% comment %} Multiple sets of content to ensure no empty spaces {% endcomment %}
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_1 | default: 'High Quality Ingredients' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_2 | default: 'Independently Certified' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_3 | default: 'Expert Driven' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_4 | default: 'Shipped Internationally' }}
+    </div>
+
+    {% comment %} Second set {% endcomment %}
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_1 | default: 'High Quality Ingredients' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_2 | default: 'Independently Certified' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_3 | default: 'Expert Driven' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_4 | default: 'Shipped Internationally' }}
+    </div>
+
+    {% comment %} Third set {% endcomment %}
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_1 | default: 'High Quality Ingredients' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_2 | default: 'Independently Certified' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_3 | default: 'Expert Driven' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_4 | default: 'Shipped Internationally' }}
+    </div>
+
+    {% comment %} Fourth set for extra coverage {% endcomment %}
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_1 | default: 'High Quality Ingredients' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_2 | default: 'Independently Certified' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_3 | default: 'Expert Driven' }}
+    </div>
+
+    <div class="marquee__item">
+      <svg class="marquee__icon" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0L10.472 5.27L16 6.13L12 10.24L12.944 16L8 13.27L3.056 16L4 10.24L0 6.13L5.528 5.27L8 0Z"/>
+      </svg>
+      {{ section.settings.trust_badge_4 | default: 'Shipped Internationally' }}
+    </div>
   </div>
 </section>
-{% endif %}
 
 {% schema %}
 {
   "name": "Marquee Banner",
   "settings": [
     {
-      "type": "header",
-      "content": "Marquee Settings"
+      "type": "text",
+      "id": "trust_badge_1",
+      "label": "Trust Badge 1",
+      "default": "High Quality Ingredients"
     },
     {
-      "type": "checkbox",
-      "id": "enable_marquee",
-      "label": "Enable Marquee",
-      "default": true
+      "type": "text",
+      "id": "trust_badge_2",
+      "label": "Trust Badge 2",
+      "default": "Independently Certified"
     },
     {
-      "type": "range",
-      "id": "marquee_speed",
-      "min": 10,
-      "max": 60,
-      "step": 5,
-      "unit": "s",
-      "label": "Marquee Animation Speed",
-      "default": 30
+      "type": "text",
+      "id": "trust_badge_3",
+      "label": "Trust Badge 3",
+      "default": "Expert Driven"
     },
     {
-      "type": "checkbox",
-      "id": "pause_on_hover",
-      "label": "Pause animation on hover",
-      "default": false
-    }
-  ],
-  "blocks": [
-    {
-      "type": "trust_badge",
-      "name": "Trust Badge",
-      "settings": [
-        {
-          "type": "text",
-          "id": "text",
-          "label": "Badge Text",
-          "default": "High Quality Ingredients"
-        },
-        {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "Custom Icon (SVG recommended)"
-        }
-      ]
-    },
-    {
-      "type": "brand_logo",
-      "name": "Brand Logo",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Brand Logo"
-        },
-        {
-          "type": "text",
-          "id": "brand_name",
-          "label": "Brand Name (for alt text)",
-          "default": "Brand Logo"
-        }
-      ]
-    },
-    {
-      "type": "star_rating",
-      "name": "Star Rating",
-      "settings": [
-        {
-          "type": "text",
-          "id": "rating_text",
-          "label": "Rating Text",
-          "default": "12,000+ 5-star Reviews"
-        }
-      ]
+      "type": "text",
+      "id": "trust_badge_4",
+      "label": "Trust Badge 4",
+      "default": "Shipped Internationally"
     }
   ],
   "presets": [
     {
-      "name": "Marquee Banner",
-      "category": "Promotional",
-      "blocks": [
-        {
-          "type": "trust_badge",
-          "settings": {
-            "text": "High Quality Ingredients"
-          }
-        },
-        {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Independently Certified"
-          }
-        },
-        {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Expert Driven"
-          }
-        },
-        {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Shipped Internationally"
-          }
-        },
-        {
-          "type": "star_rating"
-        }
-      ]
+      "name": "Marquee Banner"
     }
   ]
 }

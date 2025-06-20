@@ -628,44 +628,8 @@
         "subtitle": "Why Health & Fitness",
         "title": "Clean Supplements - Made For You"
       }
-    },
-    "footer_section": {
-      "type": "footer",
-      "settings": {
-        "newsletter_heading": "Be a Part of Our Journey",
-        "newsletter_subheading": "Welcome to UNCMFRT. Sign up for exclusive content and we'll send you 10% off.",
-        "menu_title_1": "About Us",
-        "about_blog_link": "/blogs/news",
-        "about_product_reviews_link": "/pages/product-reviews",
-        "about_our_story_link": "/pages/our-story",
-        "about_delivery_link": "/pages/delivery",
-        "menu_title_2": "Support",
-        "support_order_status_link": "/pages/order-status",
-        "support_help_center_link": "/pages/help-center",
-        "support_contact_us_link": "/pages/contact",
-        "support_returns_link": "/pages/returns",
-        "menu_title_3": "Important Link",
-        "important_maintenance_link": "/pages/maintenance",
-        "important_warranty_link": "/pages/warranty",
-        "important_canadian_customers_link": "/pages/canadian-customers",
-        "important_setup_link": "/pages/setup",
-        "menu_title_4": "Legal",
-        "legal_privacy_policy_link": "/pages/privacy-policy",
-        "legal_accessibility_link": "/pages/accessibility",
-        "legal_terms_of_service_link": "/pages/terms-of-service",
-        "legal_affiliate_program_link": "/pages/affiliate-program",
-        "legal_articles_link": "/blogs/articles",
-        "contact_heading": "Contact Us",
-        "contact_subheading": "Let Us Help You",
-        "contact_phone": "(888) 860-0572",
-        "social_heading": "Connect With Us",
-        "social_instagram_link": "https://instagram.com/uncmfrt.com",
-        "social_twitter_link": "https://twitter.com/uncmfrt",
-        "social_facebook_link": "https://facebook.com/uncmfrt",
-        "social_youtube_link": "https://youtube.com/uncmfrt",
-        "copyright_text": "uncmfrt.com. All right reserved.",
-        "attribution_text": "Made with ♥︎ and 🛒 by Arctic Grey"
-      }
+
+  
     }
   },
   "order": [
@@ -679,7 +643,6 @@
     "protein_powder_section_RqtzfU",
     "blog_section_ABC123",
     "clean_supplements_ABC123",
-        "hero_next_gen_ABC123",
-    "footer_section"
+        "hero_next_gen_ABC123"
   ]
 }

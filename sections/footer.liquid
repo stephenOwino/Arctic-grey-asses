@@ -1,14 +1,7 @@
-{% comment %}
-  Shopify Footer Section
-  - Replicates the exact design from the provided screenshot
-  - Fully responsive and customizable via the Shopify Theme Editor
-{% endcomment %}
-
 <footer class="site-footer">
   <div class="page-width">
     <div class="footer__content">
       <div class="footer-grid">
-        
         <!-- Newsletter Section -->
         <div class="footer-grid__item footer-grid__item--newsletter">
           {% if section.settings.newsletter_heading != blank %}
@@ -17,7 +10,6 @@
           {% if section.settings.newsletter_subheading != blank %}
             <p class="footer__text">{{ section.settings.newsletter_subheading }}</p>
           {% endif %}
-          
           {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter-form' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">
             <div class="newsletter-form__field-wrapper">
@@ -31,15 +23,14 @@
                 autocorrect="off"
                 autocapitalize="off"
                 autocomplete="email"
-                placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                placeholder="Email Address"
               >
               <button type="submit" class="newsletter-form__button" name="commit">
-                {{ 'general.newsletter_form.subscribe' | t }}
+                Subscribe
               </button>
             </div>
           {%- endform -%}
         </div>
-
         <!-- About Us Column -->
         <div class="footer-grid__item">
           <h4 class="footer__heading">{{ section.settings.menu_title_1 }}</h4>
@@ -58,7 +49,6 @@
             {%- endif -%}
           </ul>
         </div>
-
         <!-- Support Column -->
         <div class="footer-grid__item">
           <h4 class="footer__heading">{{ section.settings.menu_title_2 }}</h4>
@@ -77,7 +67,6 @@
             {%- endif -%}
           </ul>
         </div>
-
         <!-- Important Link Column -->
         <div class="footer-grid__item">
           <h4 class="footer__heading">{{ section.settings.menu_title_3 }}</h4>
@@ -96,7 +85,6 @@
             {%- endif -%}
           </ul>
         </div>
-
         <!-- Legal Column -->
         <div class="footer-grid__item">
           <h4 class="footer__heading">{{ section.settings.menu_title_4 }}</h4>
@@ -118,8 +106,7 @@
             {%- endif -%}
           </ul>
         </div>
-
-        <!-- Contact Section -->
+        <!-- Contact Section with Socials -->
         <div class="footer-grid__item footer-grid__item--contact">
           {% if section.settings.contact_heading != blank %}
             <h4 class="footer__heading">{{ section.settings.contact_heading }}</h4>
@@ -130,320 +117,358 @@
           {% if section.settings.contact_phone != blank %}
             <a href="tel:{{ section.settings.contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}" class="contact-info__phone">{{ section.settings.contact_phone }}</a>
           {% endif %}
-          
           {% if section.settings.social_heading != blank %}
             <h4 class="footer__heading footer__heading--social">{{ section.settings.social_heading }}</h4>
           {% endif %}
-          <div class="footer__social-icons">
-            {%- if section.settings.social_instagram_link != blank -%}
-              <a href="{{ section.settings.social_instagram_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
-                </svg>
-              </a>
-            {%- endif -%}
-            {%- if section.settings.social_twitter_link != blank -%}
-              <a href="{{ section.settings.social_twitter_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Twitter">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" fill="currentColor"/>
-                </svg>
-              </a>
-            {%- endif -%}
-            {%- if section.settings.social_facebook_link != blank -%}
-              <a href="{{ section.settings.social_facebook_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Facebook">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/>
-                </svg>
-              </a>
-            {%- endif -%}
-            {%- if section.settings.social_youtube_link != blank -%}
-              <a href="{{ section.settings.social_youtube_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="YouTube">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="currentColor"/>
-                </svg>
-              </a>
-            {%- endif -%}
+          <div class="footer__social-icons-wrap">
+            <div class="footer__social-icons">
+              {%- if section.settings.social_instagram_link != blank -%}
+                <a href="{{ section.settings.social_instagram_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Instagram">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/></svg>
+                </a>
+              {%- endif -%}
+              {%- if section.settings.social_twitter_link != blank -%}
+                <a href="{{ section.settings.social_twitter_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Twitter">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" fill="currentColor"/></svg>
+                </a>
+              {%- endif -%}
+              {%- if section.settings.social_facebook_link != blank -%}
+                <a href="{{ section.settings.social_facebook_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="Facebook">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/></svg>
+                </a>
+              {%- endif -%}
+              {%- if section.settings.social_youtube_link != blank -%}
+                <a href="{{ section.settings.social_youtube_link }}" class="social-icon-link" target="_blank" rel="noopener" aria-label="YouTube">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="currentColor"/></svg>
+                </a>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Footer Bottom -->
     <div class="footer__bottom">
       <div class="footer__bottom-content">
         <div class="footer__copyright">
-          <span>&copy; {{ 'now' | date: "%Y" }} {{ section.settings.copyright_text }}</span>
+          <span>© {{ 'now' | date: "%Y" }} {{ section.settings.copyright_text }}</span>
         </div>
-        {% if section.settings.attribution_text != blank %}
-          <div class="footer__attribution">
-            <span>{{ section.settings.attribution_text }}</span>
-          </div>
-        {% endif %}
       </div>
+      {% if section.settings.attribution_text != blank %}
+        <div class="footer__attribution footer__attribution--bottom">
+          <span>{{ section.settings.attribution_text }}</span>
+        </div>
+      {% endif %}
     </div>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    background-color: #F9FAFB;
-    padding: 64px 0 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #374151;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
 
-  .page-width {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+/* Base Styles */
+.site-footer {
+  background: #F9FAFB;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  color: #374151;
+  width: 100vw;
+  overflow-x: hidden;
+  padding-top: 32px;
+}
+.page-width {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.footer__content {
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 24px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.2fr;
+  gap: 14px 36px;
+  align-items: start;
+  width: 100%;
+}
+.footer-grid__item {
+  min-width: 0;
+}
+.footer__heading,
+.footer__heading--social {
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #1B1F23;
+  margin: 0 0 12px 0;
+  word-break: break-word;
+}
+.footer__heading--social {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.footer__text {
+  font-size: 13px;
+  color: #6B7280;
+  margin: 0 0 14px 0;
+  line-height: 1.4;
+  max-width: 100%;
+  word-break: break-word;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+}
+.footer__text--contact {
+  margin-bottom: 10px;
+}
+.footer-grid__item--newsletter {
+  max-width: 370px;
+}
+.footer__newsletter-form { width: 100%; }
+.newsletter-form__field-wrapper {
+  display: flex;
+  width: 368px;
+  height: 50px;
+  background: transparent;
+  gap: 0;
+}
+.newsletter-form__input {
+  flex: 1;
+  height: 100%;
+  padding: 0 14px;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  border: 1px solid #D1D5DB;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  min-width: 0;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+}
+.newsletter-form__input::placeholder { color: #9CA3AF;}
+.newsletter-form__input:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 1px #3B82F6;
+}
+.newsletter-form__button {
+  height: 100%;
+  padding: 0 22px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: #111827;
+  border: 1px solid #111827;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  min-width: 110px;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  transition: background-color .2s;
+}
+.newsletter-form__button:hover { background: #1F2937; }
+.footer__linklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.footer__linklist a {
+  display: inline-block;
+  min-width: 34px;
+  min-height: 19px;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #1B1F23;
+  text-decoration: none;
+  transition: color .2s, background .2s;
+  padding: 2px 0;
+  border-radius: 4px;
+  overflow: visible;
+  white-space: nowrap;
+}
+.footer__linklist a:hover { color: #111827; background: #F3F4F6;}
+.contact-info__phone {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+  transition: color .2s;
+  word-break: break-all;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+}
+.contact-info__phone:hover { color: #374151;}
+.footer__social-icons-wrap {
+  width: 140.98px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 14px;
+}
+.footer__social-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.social-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  transition: color .2s, background .2s;
+}
+.social-icon-link:hover {
+  color: #111827;
+  background: #F3F4F6;
+}
+.social-icon {
+  width: 20px;
+  height: 20px;
+}
+.footer__attribution.footer__attribution--bottom {
+  font-size: 12px;
+  color: #9CA3AF;
+  margin: 0 0 8px 0;
+  padding: 0;
+  white-space: nowrap;
+  display: block;
+  position: absolute;
+  right: 32px;
+  bottom: 8px;
+  z-index: 2;
+  background: #F9FAFB;
+  pointer-events: auto;
+}
+.footer__bottom {
+  padding: 16px 0 8px 0;
+  border-top: 1px solid #E5E7EB;
+  position: relative;
+  min-height: 42px;
+}
+.footer__bottom-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 12px;
+  color: #9CA3AF;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+}
 
-  .footer__content {
-    border-bottom: 1px solid #E5E7EB;
-    padding-bottom: 48px;
-  }
+/* ========== Responsive Styles ========== */
 
+/* Extra small screens (250px and up) */
+@media screen and (max-width: 400px) {
+  .page-width { padding: 0 4vw; }
+  .footer__bottom { min-height: 56px; }
+  .footer__attribution.footer__attribution--bottom { right: 4vw; }
+}
+
+@media screen and (max-width: 900px) {
   .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.2fr;
-    gap: 48px;
-    align-items: start;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px 14px;
   }
-
-  /* Typography */
-  .footer__heading {
-    font-size: 14px;
-    font-weight: 600;
-    color: #111827;
-    margin: 0 0 16px 0;
-    line-height: 1.4;
-  }
-  
-  .footer__heading--social {
-    margin-top: 32px;
-    margin-bottom: 16px;
-  }
-
-  .footer__text {
-    font-size: 14px;
-    color: #6B7280;
-    line-height: 1.5;
-    margin: 0 0 24px 0;
-    max-width: 280px;
-  }
-
-  .footer__text--contact {
-    margin-bottom: 8px;
-  }
-
-  /* Newsletter Section */
   .footer-grid__item--newsletter {
-    max-width: 320px;
+    grid-column: 1 / -1;
+    max-width: 100%;
   }
+  .footer-grid__item--contact {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+  }
+}
 
-  .footer__newsletter-form {
+@media screen and (max-width: 600px) {
+  .site-footer { padding-top: 16px;}
+  .page-width { padding: 0 3vw;}
+  .footer__content { padding-bottom: 14px;}
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 18px 0;
     width: 100%;
   }
-
+  .footer-grid__item {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .footer-grid__item:last-child { border-bottom: none; }
+  .footer__heading,
+  .footer__heading--social { font-size: 16px; }
+  .footer__text { font-size: 12px;}
+  .footer__linklist a { font-size: 12px;}
+  .contact-info__phone { font-size: 14px;}
   .newsletter-form__field-wrapper {
-    display: flex;
-    width: 100%;
-  }
-
-  .newsletter-form__input {
-    flex: 1;
-    height: 40px;
-    padding: 0 12px;
-    font-size: 14px;
-    color: #111827;
-    background-color: #FFFFFF;
-    border: 1px solid #D1D5DB;
-    border-right: none;
-    border-radius: 6px 0 0 6px;
-    outline: none;
-    transition: border-color 0.2s ease;
-  }
-
-  .newsletter-form__input::placeholder {
-    color: #9CA3AF;
-  }
-
-  .newsletter-form__input:focus {
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 1px #3B82F6;
-  }
-
-  .newsletter-form__button {
-    height: 40px;
-    padding: 0 16px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #FFFFFF;
-    background-color: #111827;
-    border: 1px solid #111827;
-    border-radius: 0 6px 6px 0;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    white-space: nowrap;
-    min-width: 80px;
-  }
-
-  .newsletter-form__button:hover {
-    background-color: #1F2937;
-  }
-
-  /* Link Lists */
-  .footer__linklist {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
     flex-direction: column;
-    gap: 12px;
+    width: 100%;
+    height: auto;
   }
-  
-  .footer__linklist a {
-    text-decoration: none;
-    color: #6B7280;
-    font-size: 14px;
-    line-height: 1.4;
-    transition: color 0.2s ease;
+  .newsletter-form__input,
+  .newsletter-form__button {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 40px;
+    font-size: 13px;
   }
-
-  .footer__linklist a:hover {
-    color: #111827;
-  }
-
-  /* Contact Section */
-  .contact-info__phone {
-    font-size: 20px;
-    font-weight: 700;
-    color: #111827;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 8px;
-    transition: color 0.2s ease;
-  }
-
-  .contact-info__phone:hover {
-    color: #374151;
-  }
-  
-  .footer__social-icons {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .social-icon-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6B7280;
-    transition: color 0.2s ease;
-    text-decoration: none;
-  }
-  
-  .social-icon-link:hover {
-    color: #111827;
-  }
-
-  .social-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  /* Footer Bottom */
-  .footer__bottom {
-    padding: 24px 0;
-  }
-
+  .newsletter-form__button { margin-top: 2px;}
   .footer__bottom-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: #9CA3AF;
+    font-size: 11px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    text-align: left;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
+  .footer__social-icons-wrap { width: 100%; margin-bottom: 8px; }
+  .footer__social-icons { gap: 12px;}
+  .footer__attribution.footer__attribution--bottom {
+    position: static;
+    margin-top: 4px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: none;
+  }
+}
 
-  .footer__copyright,
-  .footer__attribution {
-    font-size: 14px;
-    color: #9CA3AF;
-  }
-  
-  /* Responsive Design */
-  @media screen and (max-width: 1024px) {
-    .footer-grid {
-      grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
-      gap: 32px;
-    }
-    
-    .footer-grid__item:nth-child(4) {
-      grid-row: 2;
-      grid-column: 2;
-    }
-    
-    .footer-grid__item:nth-child(5) {
-      grid-row: 2;
-      grid-column: 3;
-    }
-  }
+/* Smallest size: stack, readable, no horizontal scroll from 250px */
+@media screen and (max-width: 350px) {
+  .page-width { padding: 0 2vw; }
+  .footer__bottom { min-height: 64px; }
+  .footer__attribution.footer__attribution--bottom { right: 2vw; font-size: 11px; }
+}
 
-  @media screen and (max-width: 768px) {
-    .site-footer {
-      padding-top: 48px;
-    }
-    
-    .page-width {
-      padding: 0 20px;
-    }
-    
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-    
-    .footer-grid__item--newsletter {
-      grid-column: 1 / -1;
-      max-width: none;
-    }
-    
-    .footer-grid__item--contact {
-      grid-column: 1 / -1;
-      margin-top: 16px;
-    }
-    
-    .footer__bottom-content {
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    
-    .newsletter-form__field-wrapper {
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .newsletter-form__input {
-      border-radius: 6px;
-      border-right: 1px solid #D1D5DB;
-    }
-    
-    .newsletter-form__button {
-      border-radius: 6px;
-      width: 100%;
-    }
-  }
+/* Prevent horizontal scroll on *all* screens */
+.site-footer, .page-width, .footer-grid, .footer__bottom-content {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 </style>
-
 {% schema %}
 {
   "name": "Custom Footer",
@@ -643,9 +668,7 @@
     }
   ],
   "presets": [
-    {
-      "name": "Custom Footer"
-    }
+    { "name": "Custom Footer" }
   ]
 }
 {% endschema %}

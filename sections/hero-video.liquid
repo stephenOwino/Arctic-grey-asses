@@ -1,5 +1,5 @@
 {%- comment -%}
-  Hero Section with Video Background
+  Hero Section with Video Background - Enhanced Responsive
 {%- endcomment -%}
 
 <style>
@@ -8,8 +8,9 @@
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 57.5%; /* 920px / 1600px = 0.575 or 57.5% for aspect ratio */
+    padding-bottom: 57.5%; /* Default aspect ratio */
     overflow: hidden;
+    min-height: 300px; /* Minimum height for very small screens */
   }
 
   .hero__video-container {
@@ -32,7 +33,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); /* Dark overlay for better text visibility */
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -43,11 +44,12 @@
   .hero__heading {
     font-family: 'Rubik', sans-serif;
     font-weight: 700;
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(1.25rem, 5vw, 4rem); /* More conservative minimum */
     line-height: 1.1;
     color: #FFFFFF;
     margin-bottom: 1.5rem;
     max-width: 800px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Better readability */
   }
 
   .hero__button {
@@ -66,19 +68,97 @@
     text-decoration: none;
     transition: all 0.3s ease;
     margin-bottom: 2rem;
+    touch-action: manipulation; /* Better touch performance */
   }
 
   .hero__button:hover {
     background-color: #F5F5F5;
   }
 
-  @media screen and (max-width: 768px) {
+  /* Enhanced breakpoints for better responsiveness */
+
+  /* Small tablets and large phones (481px - 767px) */
+  @media screen and (max-width: 767px) and (min-width: 481px) {
+    .hero {
+      padding-bottom: 60%; /* Slightly taller on tablets */
+    }
+    
     .hero__overlay {
-      padding: 2rem;
+      padding: 3rem 2rem;
     }
     
     .hero__heading {
-      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-size: clamp(1.5rem, 4.5vw, 3rem);
+      margin-bottom: 1.25rem;
+    }
+    
+    .hero__button {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Mobile phones (250px - 480px) */
+  @media screen and (max-width: 480px) {
+    .hero {
+      padding-bottom: 65%; /* Taller aspect ratio for mobile */
+      min-height: 280px;
+    }
+    
+    .hero__overlay {
+      padding: 1.5rem 1rem;
+      justify-content: center; /* Center content on very small screens */
+      text-align: center;
+      align-items: center;
+    }
+    
+    .hero__heading {
+      font-size: clamp(1.25rem, 6vw, 2.5rem);
+      margin-bottom: 1rem;
+      max-width: 100%;
+    }
+    
+    .hero__button {
+      width: 100%;
+      max-width: 280px;
+      height: 52px; /* Larger touch target */
+      font-size: 18px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  /* Very small screens (250px - 320px) */
+  @media screen and (max-width: 320px) {
+    .hero {
+      padding-bottom: 70%;
+      min-height: 250px;
+    }
+    
+    .hero__overlay {
+      padding: 1rem 0.75rem;
+    }
+    
+    .hero__heading {
+      font-size: clamp(1.125rem, 7vw, 2rem);
+      line-height: 1.2;
+    }
+    
+    .hero__button {
+      font-size: 16px;
+      height: 48px;
+      min-width: 120px;
+    }
+  }
+
+  /* Landscape orientation adjustments for mobile */
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    .hero {
+      padding-bottom: 100%;
+      min-height: 100vh;
+    }
+    
+    .hero__overlay {
+      justify-content: center;
+      padding: 2rem;
     }
   }
 </style>
@@ -86,7 +166,6 @@
 <!-- Hero Video Section -->
 <section class="hero">
   <div class="hero__video-container">
-    <!-- Video source prioritizing settings -->
     <video class="hero__video" autoplay loop muted playsinline poster="{{ section.settings.poster | img_url: 'master' }}">
       {% if section.settings.video_mp4 != blank %}
         <source src="{{ section.settings.video_mp4 }}" type="video/mp4">
