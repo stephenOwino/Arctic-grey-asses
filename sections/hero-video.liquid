@@ -8,7 +8,7 @@
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 57.5%; /* Default aspect ratio */
+    padding-bottom: 56.25%; /* Fixed consistent aspect ratio 16:9 */
     overflow: hidden;
     min-height: 300px; /* Minimum height for very small screens */
   }
@@ -80,7 +80,7 @@
   /* Small tablets and large phones (481px - 767px) */
   @media screen and (max-width: 767px) and (min-width: 481px) {
     .hero {
-      padding-bottom: 60%; /* Slightly taller on tablets */
+      padding-bottom: 56.25%; /* Keep same aspect ratio */
     }
     
     .hero__overlay {
@@ -100,7 +100,7 @@
   /* Mobile phones (250px - 480px) */
   @media screen and (max-width: 480px) {
     .hero {
-      padding-bottom: 65%; /* Taller aspect ratio for mobile */
+      padding-bottom: 56.25%; /* Keep same aspect ratio */
       min-height: 280px;
     }
     
@@ -129,7 +129,7 @@
   /* Very small screens (250px - 320px) */
   @media screen and (max-width: 320px) {
     .hero {
-      padding-bottom: 70%;
+      padding-bottom: 56.25%; /* Keep same aspect ratio */
       min-height: 250px;
     }
     
@@ -152,7 +152,7 @@
   /* Landscape orientation adjustments for mobile */
   @media screen and (max-height: 500px) and (orientation: landscape) {
     .hero {
-      padding-bottom: 100%;
+      padding-bottom: 75%; /* Adjusted for landscape */
       min-height: 100vh;
     }
     

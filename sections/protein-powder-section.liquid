@@ -2,257 +2,441 @@
   Protein Powder Section - Customized Protein Powder
 {% endcomment %}
 
-<section class="protein-powder-section" style="padding: 5rem 0; background-color: #f5f5f5; text-align: center;">
-  <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; position: relative; /* For positioning the new global arrow */">
-    
-    <div class="section-header" style="margin-bottom: 3rem; text-align: center;">
-      <p class="section-subtitle" style="font-size: 1rem; color: #666; margin: 0 0 0.5rem; text-transform: uppercase; font-weight: 500;">{{ section.settings.subheading }}</p>
-      <h2 class="section-main-heading" style="font-size: 2.5rem; font-weight: 700; color: #333; margin: 0; line-height: 1.2;">{{ section.settings.heading }}</h2>
-    </div>
-
-    <div class="protein-powder-container" style="display: flex; flex-wrap: wrap; gap: 3rem; justify-content: center; align-items: flex-start;">
-      
-      <div class="product-image-column" style="flex: 1; min-width: 300px; max-width: 500px; position: relative; display: flex; justify-content: center; align-items: center;">
-        <button class="nav-arrow prev" style="background: none; border: none; cursor: pointer; padding: 0.5rem; position: absolute; left: -25px; top: 50%; transform: translateY(-50%); z-index: 10;">
-          {% if section.settings.icon_arrow_left %}
-            {{ section.settings.icon_arrow_left | image_url: width: 24 | image_tag: loading: 'lazy', alt: 'Previous Arrow', style: 'width: 24px; height: 24px; object-fit: contain;' }}
-          {% else %}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          {% endif %}
-        </button>
-        
-        <div class="product-image-carousel" style="width: 100%; max-width: 450px; height: 400px; overflow: hidden; position: relative; border-radius: 12px; background: #fff; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
-          {% for block in section.blocks %}
-            {% if block.type == 'image' %}
-              <div class="product-image" {{ block.shopify_attributes }} style="display: {% if forloop.first %}flex{% else %}none{% endif %}; width: 100%; height: 100%; justify-content: center; align-items: center;">
-                {% if block.settings.image %}
-                  {{ block.settings.image | image_url: width: 450 | image_tag: loading: 'lazy', alt: section.settings.heading, style: 'width: 100%; height: 100%; object-fit: contain; border-radius: 12px;' }}
-                {% else %}
-                  <img src="{{ 'whey-protein-package-placeholder.png' | asset_url }}" loading="lazy" alt="Protein powder package" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;" />
-                {% endif %}
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-        
-        <button class="nav-arrow next" style="background: none; border: none; cursor: pointer; padding: 0.5rem; position: absolute; right: -25px; top: 50%; transform: translateY(-50%); z-index: 10;">
-          {% if section.settings.icon_arrow_right %}
-            {{ section.settings.icon_arrow_right | image_url: width: 24 | image_tag: loading: 'lazy', alt: 'Next Arrow', style: 'width: 24px; height: 24px; object-fit: contain;' }}
-          {% else %}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          {% endif %}
-        </button>
+<section class="protein-powder-section">
+  <div class="container">
+    <!-- Title and Subtitle above the card -->
+    <div class="section-header">
+      <div class="section-header-inner">
+        <span class="section-subtitle">{{ section.settings.subheading }}</span>
+        <span class="section-main-heading">{{ section.settings.heading }}</span>
       </div>
-      
-      <div class="product-info-column" style="flex: 1; min-width: 300px; max-width: 600px;">
-        <div class="product-details-card" style="background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); padding: 2rem; text-align: left;">
-          <div class="blend-section" style="background-color: #1A1A1A; padding: 1.5rem; border-radius: 12px 12px 0 0; margin: -2rem -2rem 1.5rem -2rem;">
-            <h3 class="card-title" style="font-size: 1.5rem; font-weight: 600; color: #fff; margin: 0 0 1.5rem; text-align: center;">{{ section.settings.card_title }}</h3>
-            <div class="feature-list" style="display: flex; justify-content: space-around; gap: 1rem; margin-bottom: 0;">
+    </div>
+    <div class="protein-powder-wrapper">
+      <!-- Left Arrow outside the card, vertically centered to the container -->
+      <button class="nav-arrow global-prev" title="Previous" aria-label="Previous">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <div class="protein-powder-container">
+        <!-- Left Product Image -->
+        <div class="product-image-column">
+          <div class="product-image-carousel">
+            {% for block in section.blocks %}
+              {% if block.type == 'image' %}
+                <div class="product-image" {{ block.shopify_attributes }} style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                  {% if block.settings.image %}
+                    {{ block.settings.image | image_url: width: 356 | image_tag: loading: 'lazy', alt: section.settings.heading }}
+                  {% else %}
+                    <img src="{{ 'placeholder.svg' | asset_url }}" loading="lazy" alt="Protein powder package placeholder" />
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <!-- Right Card: Blend, Features, Ingredients, Button -->
+        <div class="product-info-column">
+          <div class="blend-section">
+            <h3 class="card-title">{{ section.settings.card_title }}</h3>
+            <div class="feature-list">
               {% for block in section.blocks %}
                 {% if block.type == 'feature' %}
-                  <div class="feature-item" {{ block.shopify_attributes }} style="display: flex; flex-direction: row; align-items: center; gap: 0.8rem; font-size: 0.9rem; color: #fff;">
+                  <div class="feature-item" {{ block.shopify_attributes }}>
                     {% if section.settings.icon_leaf %}
-                      {{ section.settings.icon_leaf | image_url: width: 24 | image_tag: loading: 'lazy', alt: 'Feature Icon', style: 'width: 24px; height: 24px; object-fit: contain; filter: brightness(0) invert(1); flex-shrink: 0;' }}
+                      {{ section.settings.icon_leaf | image_url: width: 24 | image_tag: loading: 'lazy', alt: 'Feature Icon', class: 'feature-icon' }}
                     {% else %}
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M11 20A7 7 0 0 1 9 13l-5-5A7 7 0 0 1 11 1v19z"></path><path d="M11 20h9"></path></svg>
+                      <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9 13l-5-5A7 7 0 0 1 11 1v19z"></path><path d="M11 20h9"></path></svg>
                     {% endif %}
-                    <span style="font-weight: 500;">{{ block.settings.feature_text }}</span>
+                    <span>{{ block.settings.feature_text }}</span>
                   </div>
                 {% endif %}
               {% endfor %}
             </div>
           </div>
-          
-          <h4 class="ingredients-title" style="font-size: 1.2rem; font-weight: 600; color: #333; margin: 0 0 1.5rem;">{{ section.settings.ingredients_title }}</h4>
-          
-          <div class="ingredients-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
-            {% for block in section.blocks %}
-              {% if block.type == 'ingredient' %}
-                <div class="ingredient-item" {{ block.shopify_attributes }} style="text-align: center;">
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                    {% if section.settings.icon_leaf %}
-                      {{ section.settings.icon_leaf | image_url: width: 24 | image_tag: loading: 'lazy', alt: 'Ingredient Icon', style: 'width: 24px; height: 24px; object-fit: contain;' }}
-                    {% else %}
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9 13l-5-5A7 7 0 0 1 11 1v19z"></path><path d="M11 20h9"></path></svg>
-                    {% endif %}
-                    <h5 style="font-size: 1rem; font-weight: 600; color: #333; margin: 0;">{{ block.settings.ingredient_name }}</h5>
+          <div class="details-body">
+            <h4 class="ingredients-title">{{ section.settings.ingredients_title }}</h4>
+            <div class="ingredients-grid">
+              {% for block in section.blocks %}
+                {% if block.type == 'ingredient' %}
+                  <div class="ingredient-item" {{ block.shopify_attributes }}>
+                    <div class="ingredient-header">
+                      {% if section.settings.icon_leaf %}
+                        {{ section.settings.icon_leaf | image_url: width: 24 | image_tag: loading: 'lazy', alt: 'Ingredient Icon' }}
+                      {% else %}
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9 13l-5-5A7 7 0 0 1 11 1v19z"></path><path d="M11 20h9"></path></svg>
+                      {% endif %}
+                      <h5>{{ block.settings.ingredient_name }}</h5>
+                    </div>
+                    <p>{{ block.settings.ingredient_description }}</p>
                   </div>
-                  <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.4;">{{ block.settings.ingredient_description }}</p>
-                </div>
-              {% endif %}
-            {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            <button class="customize-button">{{ section.settings.button_text }}</button>
           </div>
-          
-          <button class="customize-button" style="background-color: #1A1A1A; color: #fff; padding: 0.75rem 1.5rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease; width: 100%; max-width: 300px; display: block; margin: 0 auto; font-size: 1rem;">{{ section.settings.button_text }}</button>
         </div>
       </div>
+      <!-- Right Arrow outside the card, vertically centered to the container -->
+      <button class="nav-arrow global-next" title="Next" aria-label="Next">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
     </div>
-
-    <button class="global-next-arrow" title="Next" aria-label="Next" style="background: none; border: none; cursor: pointer; padding: 1rem; position: absolute; right: 5px; /* Adjust distance from edge of container */ top: 50%; transform: translateY(-50%); z-index: 20;">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-
   </div>
-
   <style>
-    @media (max-width: 250px) {
-      .protein-powder-section { padding: 2rem 0; }
-      .container { padding: 0 0.5rem; }
-      .global-next-arrow { display: none; /* Hide global arrow on very small screens */ }
-      .protein-powder-container { flex-direction: column; gap: 1.5rem; }
-      .product-image-column { min-width: 200px; }
-      .product-image-carousel { max-width: 100%; height: 200px; }
-      .nav-arrow { padding: 0.25rem; left: 5px; right: 5px; transform: translateY(-50%);}
-      .nav-arrow.prev { left: 5px; }
-      .nav-arrow.next { right: 5px; }
-      .nav-arrow svg, .nav-arrow img { width: 16px; height: 16px; }
-      .product-info-column { min-width: 100%; max-width: 100%; }
-      .section-header .section-subtitle { font-size: 0.8rem; }
-      .section-header .section-main-heading { font-size: 1.5rem; }
-      .product-details-card { padding: 1rem; }
-      .blend-section { padding: 0.5rem; margin: -1rem -1rem 1rem -1rem; }
-      .card-title { font-size: 1.2rem; }
-      .feature-list { gap: 0.5rem; flex-wrap: wrap; flex-direction: column; align-items: center; } /* Stack features on smallest screens */
-      .feature-item { font-size: 0.7rem; flex-direction: row !important; /* Keep horizontal for icon-text */ }
-      .feature-item img, .feature-item svg { width: 16px; height: 16px; }
-      .ingredients-title { font-size: 1rem; }
-      .ingredients-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .ingredient-item h5 { font-size: 0.9rem; }
-      .ingredient-item p { font-size: 0.7rem; }
-      .ingredient-item img, .ingredient-item svg { width: 16px; height: 16px; }
-      .customize-button { font-size: 0.8rem; padding: 0.5rem 1rem; max-width: 200px; }
+    .protein-powder-section {
+      background-color: #f7f7f7;
+      padding: 3.5rem 0 2rem 0;
+      min-height: 100vh;
     }
-
-    @media (min-width: 251px) and (max-width: 576px) {
-      .protein-powder-section { padding: 3rem 0; }
-      .container { padding: 0 1rem; }
-      .global-next-arrow { display: none; /* Hide global arrow */ }
-      .protein-powder-container { flex-direction: column; gap: 2rem; }
-      .product-image-column { min-width: 250px; }
-      .product-image-carousel { max-width: 100%; height: 250px; }
-      .nav-arrow { padding: 0.35rem; left: 5px; right: 5px; transform: translateY(-50%);}
-      .nav-arrow.prev { left: 5px; }
-      .nav-arrow.next { right: 5px; }
-      .nav-arrow img, .nav-arrow svg { width: 20px; height: 20px; }
-      .product-info-column { min-width: 100%; max-width: 100%; }
-      .section-header .section-subtitle { font-size: 0.9rem; }
-      .section-header .section-main-heading { font-size: 2rem; }
-      .product-details-card { padding: 1.5rem; }
-      .blend-section { padding: 1rem; margin: -1.5rem -1.5rem 1rem -1.5rem; }
-      .card-title { font-size: 1.3rem; }
-      .feature-list { gap: 1rem; /* Increased gap for better spacing when horizontal */ justify-content: center; flex-wrap: wrap; }
-      .feature-item { font-size: 0.8rem; }
-      .feature-item img, .feature-item svg { width: 18px; height: 18px; }
-      .ingredients-title { font-size: 1.1rem; }
-      .ingredients-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .ingredient-item h5 { font-size: 0.95rem; }
-      .ingredient-item p { font-size: 0.8rem; }
-      .ingredient-item img, .ingredient-item svg { width: 18px; height: 18px; }
-      .customize-button { font-size: 0.9rem; padding: 0.6rem 1.2rem; max-width: 250px; }
-    }
-
-    @media (min-width: 577px) and (max-width: 768px) {
-      .protein-powder-section { padding: 4rem 0; }
-      .global-next-arrow { right: 10px; } /* Adjust global arrow for tablet */
-      .protein-powder-container { flex-direction: column; gap: 2.5rem; }
-      .product-image-column { min-width: 300px; margin: 0 auto; max-width: 400px; }
-      .product-image-carousel { max-width: 100%; height: 300px; }
-      .nav-arrow { padding: 0.5rem; left: -15px; right: -15px; transform: translateY(-50%);}
-      .nav-arrow.prev { left: -15px; }
-      .nav-arrow.next { right: -15px; }
-      .nav-arrow img, .nav-arrow svg { width: 22px; height: 22px; }
-      .product-info-column { min-width: 100%; max-width: 100%; }
-      .section-header .section-subtitle { font-size: 0.95rem; }
-      .section-header .section-main-heading { font-size: 2.2rem; }
-      .product-details-card { padding: 1.75rem; }
-      .blend-section { padding: 1.25rem; margin: -1.75rem -1.75rem 1rem -1.75rem; }
-      .card-title { font-size: 1.4rem; }
-      .feature-list { gap: 1.5rem; justify-content: space-around; }
-      .feature-item { font-size: 0.85rem; }
-      .feature-item img, .feature-item svg { width: 20px; height: 20px; }
-      .ingredients-title { font-size: 1.15rem; }
-      .ingredients-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.75rem; }
-      .ingredient-item h5 { font-size: 1rem; }
-      .ingredient-item p { font-size: 0.85rem; }
-      .customize-button { font-size: 1rem; padding: 0.7rem 1.4rem; }
-    }
-    
-    @media (min-width: 769px) {
-      .protein-powder-container { flex-direction: row; align-items: flex-start; }
-      .product-image-column { flex: 0 1 450px; max-width: 450px; }
-      .product-image-carousel { max-width: 100%; height: 400px; }
-      .product-info-column { flex: 1 1 50%; max-width: 600px; }
-      .nav-arrow.prev { left: -25px; }
-      .nav-arrow.next { right: -25px; }
-      .global-next-arrow { right: 15px; /* Default for larger screens */ }
-      .ingredients-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .protein-powder-section { padding: 4rem 0; }
-      .protein-powder-container { gap: 2.5rem; }
-      .product-image-column { flex-basis: 400px; max-width: 400px; }
-      .product-image-carousel { height: 350px; }
-      .nav-arrow img, .nav-arrow svg { width: 24px; height: 24px; }
-      .section-header .section-subtitle { font-size: 1rem; }
-      .section-header .section-main-heading { font-size: 2.5rem; }
-      .product-details-card { padding: 2rem; }
-      .blend-section { padding: 1.5rem; margin: -2rem -2rem 1.5rem -2rem; }
-      .card-title { font-size: 1.5rem; }
-      .feature-list { gap: 1rem; }
-      .feature-item { font-size: 0.9rem; }
-      .ingredients-title { font-size: 1.2rem; }
-      .ingredients-grid { gap: 2rem; }
-      .ingredient-item h5 { font-size: 1rem; }
-      .ingredient-item p { font-size: 0.9rem; }
-      .customize-button { font-size: 1rem; padding: 0.75rem 1.5rem; }
-    }
-
-    @media (min-width: 1025px) {
-      .protein-powder-container { gap: 3rem; }
-      .product-image-column { flex-basis: 450px; max-width: 450px; }
-      .product-image-carousel { max-width: 400px; height: 400px; }
-      .product-info-column { min-width: 400px; max-width: 600px; }
-      .section-header .section-main-heading { font-size: 2.5rem; }
-      .feature-list { gap: 1rem; }
-      .ingredients-grid { gap: 2rem; }
-    }
-
-    @media (min-width: 1440px) { /* Adjust global arrow for very wide screens if container is not full width */
-        .global-next-arrow {
-            /* Calculate position if container is not viewport width, e.g. right: calc((100vw - 1400px) / 2 + 15px); */
-            /* For simplicity, if container is max-width and centered, this might be okay or need adjustment based on actual render */
-             right: 30px; /* Example */
-        }
-    }
+    .container {
+      max-width: 1599x;
+      height: 834;
+      top: 4942px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
 
 
-    @media (min-width: 2001px) {
-      .protein-powder-section { padding: 6rem 0; }
-      .global-next-arrow { right: 40px; /* Further out for very large screens */ }
-      .protein-powder-container { gap: 4rem; }
-      .product-image-column { flex-basis: 550px; max-width: 550px; }
-      .product-image-carousel { max-width: 500px; height: 500px; }
-      .nav-arrow { padding: 0.75rem; }
-      .nav-arrow.prev { left: -30px; }
-      .nav-arrow.next { right: -30px; }
-      .nav-arrow img, .nav-arrow svg { width: 28px; height: 28px; }
-      .product-info-column { min-width: 500px; max-width: 700px; }
-      .section-header .section-subtitle { font-size: 1.2rem; }
-      .section-header .section-main-heading { font-size: 3rem; }
-      .product-details-card { padding: 2.5rem; }
-      .blend-section { padding: 2rem; margin: -2.5rem -2.5rem 1.5rem -2.5rem; }
-      .card-title { font-size: 1.8rem; }
-      .feature-list { gap: 1.5rem; }
-      .feature-item { font-size: 1rem; }
-      .feature-item img, .feature-item svg { width: 24px; height: 24px; }
-      .ingredients-title { font-size: 1.4rem; }
-      .ingredients-grid { gap: 2.5rem; }
-      .ingredient-item h5 { font-size: 1.2rem; }
-      .ingredient-item p { font-size: 1rem; }
-      .ingredient-item img, .ingredient-item svg { width: 24px; height: 24px; }
-      .customize-button { font-size: 1.2rem; padding: 1rem 2rem; max-width: 350px; }
+
+
+    }
+    .section-header {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .section-header-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+    }
+    .section-subtitle {
+      font-family: 'Rubik', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0;
+      color: #000000;
+      text-align: center;
+      margin: 0 auto;
+      margin-bottom: 8px;
+      display: block;
+      width: auto;
+      max-width: 100%;
+    }
+    .section-main-heading {
+      font-family: 'Rubik', sans-serif;
+      font-weight: 500;
+      font-size: 40px;
+      line-height: 100%;
+      letter-spacing: 0;
+      color: #1B1F23;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      width: auto;
+      max-width: 100%;
+    }
+    @media (max-width: 600px) {
+      .section-main-heading {
+        font-size: 28px;
+        width: auto;
+        max-width: 95vw;
+      }
+      .section-subtitle {
+        font-size: 13px;
+        width: auto;
+        max-width: 95vw;
+      }
+    }
+    .protein-powder-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex: 1 1 auto;
+      position: relative;
+      min-height: 520px;
+    }
+    .protein-powder-container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 420px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px 0 rgba(56, 56, 56, 0.08);
+      align-items: stretch;
+      position: relative;
+      margin-top: 1.2rem;
+      margin-bottom: 2rem;
+      z-index: 2;
+    }
+    .product-image-column {
+      flex: 0 0 49%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 0;
+      min-width: 320px;
+      min-height: 380px;
+      border-right: 1px solid #ededed;
+      background: #fff;
+      position: relative;
+      z-index: 2;
+    }
+    .product-image-carousel {
+      text-align: center;
+      width: 100%;
+    }
+    .product-image img {
+      width: 260px;
+      height: 320px;
+      object-fit: contain;
+      margin: 0 auto;
+      display: block;
+    }
+    .product-info-column {
+      flex: 0 0 51%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      min-width: 400px;
+      padding: 0;
+      z-index: 2;
+    }
+    .blend-section {
+      background-color: #181b1f;
+      border-top-right-radius: 12px;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      padding: 1.5rem 1rem 1.5rem 1rem;
+      text-align: center;
+      width: 100%;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+    .feature-list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 0;
+      width: 100%;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.04rem;
+      color: #fff;
+      font-weight: 500;
+      opacity: 1;
+      transition: background 0.2s;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 0.3rem 1.1rem;
+    }
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+    }
+    .details-body {
+      padding: 2.3rem 2rem 1.6rem 2rem;
+      background-color: #fff;
+      border-bottom-right-radius: 12px;
+      border-bottom-left-radius: 0;
+      text-align: center;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
+    .ingredients-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #23272c;
+      margin-top: 0;
+      margin-bottom: 1.8rem;
+      text-align: left;
+      letter-spacing: 0.04em;
+    }
+    .ingredients-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: 2.2rem;
+      margin-bottom: 2rem;
+    }
+    .ingredient-item {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      width: 100%;
+      max-width: 220px;
+      align-items: center;
+      background: none;
+      border-radius: 10px;
+      padding: 0.5rem 0.8rem 0.8rem 0.8rem;
+    }
+    .ingredient-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ingredient-header h5 {
+      font-size: 1.01rem;
+      font-weight: 700;
+      color: #23272c;
+      margin: 0;
+    }
+    .ingredient-item p {
+      font-size: 0.96rem;
+      color: #6c757d;
+      margin: 0;
+      line-height: 1.5;
+    }
+    .customize-button {
+      background-color: #181b1f;
+      color: #fff;
+      padding: 0.85rem 1.5rem;
+      border: none;
+      border-radius: 9px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1.08rem;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 340px;
+      transition: all 0.2s;
+      box-shadow: 0 1px 4px 0 rgba(60,60,60,0.08);
+      letter-spacing: 0.04em;
+    }
+    .customize-button:hover {
+      background-color: #23272c;
+    }
+    /* Navigation Arrows - outside card, vertically centered to wrapper */
+    .nav-arrow {
+      background: #fff;
+      border: 1px solid #eee;
+      cursor: pointer;
+      color: #939393;
+      border-radius: 7px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: color 0.2s, background 0.2s, border 0.2s;
+      z-index: 4;
+      box-shadow: 0 2px 8px 0 rgba(80,80,80,0.06);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .nav-arrow:hover {
+      color: #23272c;
+      border: 1.5px solid #c9c9c9;
+      background: #f4f4f4;
+    }
+    .nav-arrow.global-prev {
+      left: -32px;
+    }
+    .nav-arrow.global-next {
+      right: -32px;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+      .protein-powder-container {
+        max-width: 95vw;
+      }
+      .product-info-column, .product-image-column {
+        min-width: 220px;
+      }
+    }
+    @media (max-width: 900px) {
+      .protein-powder-container {
+        flex-direction: column;
+        min-height: 0;
+        height: auto;
+      }
+      .product-image-column,
+      .product-info-column {
+        flex: 1 1 100%;
+        min-width: 100%;
+        border-right: none;
+      }
+      .product-image-column {
+        border-bottom: 1px solid #ededed;
+      }
+      .nav-arrow {
+        left: 10px;
+        right: 10px;
+        top: unset;
+        bottom: -24px;
+        transform: none;
+      }
+      .nav-arrow.global-prev {
+        left: 10px;
+        right: unset;
+        top: unset;
+        bottom: -24px;
+      }
+      .nav-arrow.global-next {
+        right: 10px;
+        left: unset;
+        top: unset;
+        bottom: -24px;
+      }
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 0 0.4rem;
+      }
+      .section-header-inner {
+        width: 100%;
+      }
+      .section-main-heading { 
+        font-size: 1.7rem; 
+        width: auto; 
+        max-width: 95vw; 
+      }
+      .section-subtitle { 
+        font-size: 13px; 
+        width: auto; 
+        max-width: 95vw; 
+      }
+      .feature-list { gap: 1.1rem; }
+      .blend-section, .details-body { padding: 1.1rem 0.6rem; }
+      .ingredients-grid { flex-direction: column; gap: 1.8rem; }
+      .ingredient-item { max-width: 99vw; }
+      .nav-arrow { display: none; }
     }
   </style>
 </section>
@@ -264,13 +448,13 @@
     {
       "type": "text",
       "id": "subheading",
-      "label": "Subheading (Centered above columns)",
+      "label": "Subheading",
       "default": "Simple & Effective Ingredients"
     },
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading (Centered above columns)",
+      "label": "Heading",
       "default": "Customized Protein Powder"
     },
     {
@@ -293,21 +477,9 @@
     },
     {
       "type": "image_picker",
-      "id": "icon_arrow_left",
-      "label": "Arrow Left Icon (Image Carousel)",
-      "info": "Upload a custom left arrow icon for the carousel navigation (recommended size: 24x24px)."
-    },
-    {
-      "type": "image_picker",
-      "id": "icon_arrow_right",
-      "label": "Arrow Right Icon (Image Carousel)",
-      "info": "Upload a custom right arrow icon for the carousel navigation (recommended size: 24x24px)."
-    },
-    {
-      "type": "image_picker",
       "id": "icon_leaf",
-      "label": "Leaf Icon",
-      "info": "Upload a custom leaf icon for features and ingredients (recommended size: 24x24px)."
+      "label": "Feature/Ingredient Icon",
+      "info": "Upload a custom icon for features and ingredients (recommended size: 24x24px)."
     }
   ],
   "blocks": [
@@ -358,37 +530,13 @@
       "name": "Protein Powder Section",
       "category": "Custom Content",
       "blocks": [
-        {
-          "type": "image",
-          "settings": {}
-        },
-        {
-          "type": "feature",
-          "settings": {
-            "feature_text": "Whey Based"
-          }
-        },
-        {
-          "type": "feature",
-          "settings": {
-            "feature_text": "Build Muscle"
-          }
-        },
-        {
-          "type": "feature",
-          "settings": {
-            "feature_text": "Clean Ingredients"
-          }
-        },
-        {
-          "type": "ingredient"
-        },
-        {
-          "type": "ingredient"
-        },
-        {
-          "type": "ingredient"
-        }
+        { "type": "image" },
+        { "type": "feature", "settings": { "feature_text": "Whey Based" }},
+        { "type": "feature", "settings": { "feature_text": "Build Muscle" }},
+        { "type": "feature", "settings": { "feature_text": "Clean Ingredients" }},
+        { "type": "ingredient" },
+        { "type": "ingredient" },
+        { "type": "ingredient" }
       ]
     }
   ]

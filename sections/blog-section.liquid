@@ -1,58 +1,34 @@
 {% comment %}
   File: sections/blog-section.liquid
   Description: "Latest Articles" blog section for Shopify theme
-  Version: 2.0 (Corrected Layout)
+  Version: Figma-matched (2024-06) – Complete with Instagram grid
 {% endcomment %}
 
 <section class="blog-section">
   <div class="container">
     <div class="section-header">
-      <div class="header-left">
-        <div class="blogs-badge">
-          {% comment %} Ensure you have 'blog-icon.svg' in your assets folder {% endcomment %}
-          <img src="{{ 'blog-icon.svg' | asset_url }}" alt="Blogs" class="blog-icon">
-          <span>{{ section.settings.badge_text }}</span>
-        </div>
-        <h2 class="section-title">{{ section.settings.title }}</h2>
+      <div class="blog-header-meta">
+        <span class="blog-header-badge">Blogs</span>
       </div>
-      <div class="header-right">
-        {% if section.settings.view_all_link != blank %}
-          <a href="{{ section.settings.view_all_link }}" class="view-all-link">
-            {{ section.settings.view_all_text }}
-          </a>
-        {% endif %}
-      </div>
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      {% if section.settings.view_all_link != blank %}
+      <a href="{{ section.settings.view_all_link }}" class="view-all-link">
+        {{ section.settings.view_all_text }}
+      </a>
+      {% endif %}
     </div>
 
-    <div class="blog-grid">
-      {% for block in section.blocks %}
-        {% if block.type == 'featured_article' %}
-          <div class="featured-article">
-            <div class="article-image">
-              <img src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.title | escape }}">
-            </div>
-            <div class="article-content">
-              <span class="article-category">{{ block.settings.category }}</span>
-              <h3 class="article-title">{{ block.settings.title }}</h3>
-              <div class="article-meta">
-                <span class="author">By {{ block.settings.author }}</span>
-                <span class="date">{{ block.settings.date }}</span>
-              </div>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-
-      <div class="regular-articles">
+    <div class="blog-main-grid">
+      <div class="figma-featured-col">
         {% for block in section.blocks %}
-          {% if block.type == 'regular_article' %}
-            <div class="regular-article">
+          {% if block.type == 'featured_article' %}
+            <div class="figma-featured-article">
               <div class="article-image">
                 <img src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.title | escape }}">
               </div>
               <div class="article-content">
                 <span class="article-category">{{ block.settings.category }}</span>
-                <h4 class="article-title">{{ block.settings.title }}</h4>
+                <h3 class="article-title">{{ block.settings.title }}</h3>
                 <div class="article-meta">
                   <span class="author">By {{ block.settings.author }}</span>
                   <span class="date">{{ block.settings.date }}</span>
@@ -62,344 +38,466 @@
           {% endif %}
         {% endfor %}
       </div>
-    </div>
-
-    <div class="instagram-section-wrapper">
-      <div class="instagram-grid">
-        <div class="instagram-header-block">
-          <div class="instagram-logo-wrapper">
-            <div class="instagram-logo-circle">
-              <img src="{{ section.settings.logo_image | asset_url }}" alt="{{ section.settings.instagram_handle | escape }}">
+      <div class="figma-right-col">
+        {% assign articles = section.blocks | where: "type", "regular_article" %}
+        {% if articles.size > 0 %}
+          {% assign first_article = articles[0] %}
+          <div class="figma-regular-article">
+            <div class="article-image">
+              <img src="{{ first_article.settings.image | asset_url }}" alt="{{ first_article.settings.title | escape }}">
             </div>
-            <span class="instagram-handle">{{ section.settings.instagram_handle }}</span>
+            <div class="article-content">
+              <span class="article-category">{{ first_article.settings.category }}</span>
+              <h4 class="article-title">{{ first_article.settings.title }}</h4>
+              <div class="article-meta">
+                <span class="author">By {{ first_article.settings.author }}</span>
+                <span class="date">{{ first_article.settings.date }}</span>
+              </div>
+            </div>
           </div>
-          {% if section.settings.instagram_follow_link != blank %}
-            <a href="{{ section.settings.instagram_follow_link }}" class="follow-button">
-              {{ section.settings.follow_button_text }}
-            </a>
-          {% endif %}
-        </div>
-        
-        {% for block in section.blocks %}
-          {% if block.type == 'instagram_post' %}
-            <div class="instagram-post">
-              <img src="{{ block.settings.image | asset_url }}" alt="Instagram post">
+          {% if articles.size > 1 %}
+            {% assign second_article = articles[1] %}
+            <div class="figma-regular-article">
+              <div class="article-image">
+                <img src="{{ second_article.settings.image | asset_url }}" alt="{{ second_article.settings.title | escape }}">
+              </div>
+              <div class="article-content">
+                <span class="article-category">{{ second_article.settings.category }}</span>
+                <h4 class="article-title">{{ second_article.settings.title }}</h4>
+                <div class="article-meta">
+                  <span class="author">By {{ second_article.settings.author }}</span>
+                  <span class="date">{{ second_article.settings.date }}</span>
+                </div>
+              </div>
             </div>
           {% endif %}
-        {% endfor %}
+        {% endif %}
       </div>
     </div>
-  </div>
+
+    <div class="instagram-section-outer">
+      <div class="instagram-section-inner">
+        {% assign insta_posts = section.blocks | where: "type", "instagram_post" %}
+        
+        <div class="instagram-posts-row instagram-top-row">
+          <div class="instagram-profile-card">
+              <div class="profile-logo">
+                {% if section.settings.logo_image != blank %}
+                  <span class="profile-logo-circle">
+                    <img src="{{ section.settings.logo_image | asset_url }}" alt="{{ section.settings.instagram_handle | escape }}" />
+                  </span>
+                {% else %}
+                  <span class="profile-logo-circle">
+                    <span class="profile-logo-fallback">Logo</span>
+                  </span>
+                {% endif %}
+                <span class="profile-handle">{{ section.settings.instagram_handle }}</span>
+              </div>
+              {% if section.settings.instagram_follow_link != blank %}
+              <a href="{{ section.settings.instagram_follow_link }}" class="profile-follow-btn" target="_blank" rel="noopener">
+                {{ section.settings.follow_button_text }}
+              </a>
+              {% endif %}
+          </div>
+          
+          {% for block in insta_posts limit: 4 %}
+          <div class="instagram-post-card">
+            <img src="{{ block.settings.image | asset_url }}" alt="Instagram post">
+          </div>
+          {% endfor %}
+        </div>
+        
+        <div class="instagram-posts-row instagram-bottom-row">
+          {% for block in insta_posts offset: 4 limit: 6 %}
+          <div class="instagram-post-card">
+            <img src="{{ block.settings.image | asset_url }}" alt="Instagram post">
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    </div>
 </section>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
   .blog-section {
-    padding: 80px 0;
-    background-color: #ffffff;
+    padding: 64px 0 0 0;
+    background: #fff;
   }
-  
+  /* --- CORRECTED CONTAINER WIDTH --- */
   .container {
-    max-width: 1440px;
+    max-width: 1600px; /* Adjusted width as per your request */
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
   }
-  
+  /* Header */
   .section-header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 24px;
     margin-bottom: 40px;
+    position: relative;
   }
-  
-  .header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .blog-header-meta {
+    position: absolute;
+    left: 0;
+    top: -32px;
   }
-  
-  .blogs-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .blog-header-badge {
     font-family: 'Rubik', sans-serif;
-    font-weight: 400;
     font-size: 14px;
-    color: #4B5563; /* Adjusted color to match screenshot */
+    color: #6B7280;
+    letter-spacing: 0.01em;
+    display: inline-block;
+    margin-bottom: 8px;
+    margin-left: 2px;
   }
-
-  .blogs-badge .blog-icon {
-    width: 16px;
-    height: 16px;
-  }
-  
+  /* --- CORRECTED SECTION TITLE --- */
   .section-title {
+    flex: 1;
     font-family: 'Rubik', sans-serif;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 120%;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1; /* 100% */
+    letter-spacing: 0; /* 0% */
     color: #1B1F23;
+    text-align: left;
+    margin: 0 24px 0 0;
   }
-  
   .view-all-link {
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     color: #1B1F23;
     text-decoration: underline;
-    text-underline-offset: 4px; /* To match screenshot */
-    padding: 8px 0;
-    transition: color 0.3s ease;
+    text-underline-offset: 4px;
+    transition: color 0.3s;
+    margin-bottom: 4px;
+    margin-left: auto;
+    padding: 0;
+    line-height: 1.1;
   }
+  .view-all-link:hover { color: #4B5563; }
 
-  .view-all-link:hover {
-    color: #4B5563;
-  }
-  
-  .blog-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr; /* Adjusted ratio for better visual balance */
-    gap: 24px;
-    margin-bottom: 60px; /* Adjusted margin */
-  }
-  
-  .featured-article {
-    background: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative; /* For positioning content */
-    color: white;
-  }
-  
-  .featured-article .article-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-  }
-  
-  .featured-article .article-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 24px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); /* Gradient overlay for text readability */
-  }
-  
-  .article-category {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    color: #E5E7EB; /* Adjusted for dark background */
-    margin-bottom: 8px;
-    display: block;
-  }
-  
-  .featured-article .article-title {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 600;
-    font-size: 24px; /* Increased size */
-    line-height: 120%;
-    color: #ffffff;
-    margin-bottom: 16px;
-  }
-  
-  .article-meta {
+  /* --- CORRECTED BLOG GRID --- */
+  .blog-main-grid {
     display: flex;
-    gap: 16px;
-    font-family: 'Rubik', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: #D1D5DB; /* Adjusted for dark background */
+    flex-direction: row;
+    gap: 40px; /* Adjusted gap between large and small columns */
+    width: 100%;
   }
-  
-  .regular-articles {
+  .figma-featured-col {
+    width: 800px;
+    flex-shrink: 0;
+  }
+  .figma-right-col {
+    flex-grow: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px; /* Adjusted gap */
+    gap: 20px; /* Gap between the two small articles */
+    justify-content: space-between;
   }
-  
-  .regular-article {
+  /* --- CORRECTED FEATURED ARTICLE --- */
+  .figma-featured-article {
+    position: relative;
+    width: 800px;
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
     display: flex;
-    gap: 16px;
-    background: #ffffff;
-    padding: 0; /* Remove padding from container */
+    align-items: flex-end;
   }
-  
-  .regular-article .article-image {
-    width: 120px;
-    height: 120px;
+  .figma-featured-article .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .figma-featured-article .article-content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px 36px;
+    background: linear-gradient(69.81deg, rgba(0, 0, 0, 0.7) 6.35%, rgba(0, 0, 0, 0) 54.82%);
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .figma-featured-article .article-category {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #E5E7EB;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .figma-featured-article .article-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 120%;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .figma-featured-article .article-meta {
+    display: flex;
+    gap: 18px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #D1D5DB;
+  }
+  /* --- CORRECTED REGULAR ARTICLES --- */
+  .figma-regular-article {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-grow: 1;
+  }
+  .figma-regular-article .article-image {
+    width: 300px;
+    height: 215px;
     flex-shrink: 0;
     overflow: hidden;
-    border-radius: 8px; /* Added border radius */
+    border-radius: 8px;
+    background: #F3F4F6;
   }
-  
-  .regular-article .article-image img {
+  .figma-regular-article .article-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
-  .regular-article .article-content {
+  .figma-regular-article .article-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0;
+    gap: 8px;
+  }
+  .figma-regular-article .article-category {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1; /* 100% */
+    letter-spacing: 0; /* 0% */
+    color: #1B1F23;
+  }
+  .figma-regular-article .article-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0; /* 0% */
+    color: #1B1F23;
+    margin: 0;
+  }
+  .figma-regular-article .article-meta {
+    display: flex;
+    gap: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: #6B7280;
+    margin-top: 8px;
+  }
+
+  /* --- INSTAGRAM SECTION (Adjusted for new container width) --- */
+  .instagram-section-outer {
+    width: 100%;
+    margin-top: 56px;
+    margin-bottom: 56px;
+    display: flex;
+    justify-content: center;
   }
   
-  .regular-article .article-title {
+  .instagram-section-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .instagram-posts-row {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .instagram-top-row,
+  .instagram-bottom-row {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .instagram-profile-card {
+    grid-column: span 2;
+    background: #F3F4F6;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  
+  .profile-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .profile-logo-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    background: #000;
+    flex-shrink: 0;
+  }
+  
+  .profile-logo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .profile-logo-fallback {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .profile-handle {
     font-family: 'Rubik', sans-serif;
     font-weight: 600;
     font-size: 16px;
-    line-height: 120%;
-    color: #1B1F23;
-    margin-bottom: 12px;
-  }
-
-  .regular-article .article-category {
-      color: #6B7280;
-  }
-
-  .regular-article .article-meta {
-      color: #6B7280;
-  }
-  
-  .instagram-section-wrapper {
-    padding-top: 40px; /* Spacing from blog section */
-  }
-  
-  .instagram-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-  }
-
-  /* NEW: Styles for the header as a grid item */
-  .instagram-header-block {
-      aspect-ratio: 1 / 1;
-      border-radius: 12px;
-      background-color: #FFFFFF;
-      border: 1px solid #E5E7EB;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      padding: 16px;
-  }
-
-  .instagram-logo-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-  }
-
-  .instagram-logo-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      overflow: hidden;
-      background-color: #F3F4F6;
-  }
-
-  .instagram-logo-circle img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-  }
-  
-  .instagram-handle {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
     color: #1B1F23;
   }
   
-  .follow-button {
-    padding: 12px 16px; /* Adjusted padding */
-    background-color: #ffffff;
-    border: 1px solid #D1D5DB;
+  .profile-follow-btn {
+    width: 240px;
+    height: 55px;
+    border: 1px solid #000000;
     border-radius: 8px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     font-family: 'Rubik', sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: #1B1F23;
+    line-height: 1;
+    letter-spacing: 0;
     text-decoration: none;
-    transition: all 0.3s ease;
-    width: 100%; /* Make button take full width */
-    text-align: center;
+    white-space: nowrap;
+    transition: background .2s, border .2s;
   }
   
-  .follow-button:hover {
-    background-color: #F9FAFB;
-    border-color: #9CA3AF;
+  .profile-follow-btn:hover {
+    background: #F0F0F0;
+    border-color: #333;
   }
-  
-  .instagram-post {
-    aspect-ratio: 1 / 1;
+
+  .instagram-post-card {
+    background: #F3F4F6;
     border-radius: 12px;
     overflow: hidden;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  .instagram-post img {
+  .instagram-post-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .blog-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .instagram-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .section-header {
-      flex-direction: column;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    
-    .regular-article {
-      flex-direction: column;
-    }
-    
-    .regular-article .article-image {
-      width: 100%;
-      height: 180px;
-    }
 
-    .regular-article .article-content {
-        padding: 16px;
+  .instagram-post-card:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .blog-main-grid {
+      flex-direction: column;
+      gap: 32px;
     }
-    
-    .instagram-grid {
+    .figma-featured-col, .figma-featured-article {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+    }
+    .figma-right-col {
+      gap: 32px;
+    }
+    .figma-regular-article {
+      gap: 16px;
+    }
+    .figma-regular-article .article-image {
+        width: 200px;
+        height: 140px;
+    }
+    .instagram-section-inner, .instagram-posts-row {
+        gap: 16px;
+    }
+  }
+  @media (max-width: 900px) {
+    .instagram-top-row, .instagram-bottom-row {
       grid-template-columns: repeat(3, 1fr);
     }
-    
-    .blog-section {
-      padding: 60px 0;
+    .instagram-profile-card {
+      grid-column: span 1;
     }
   }
-  
-  @media (max-width: 480px) {
-    .section-title {
-      font-size: 28px;
-    }
+  @media (max-width: 767px) {
+    .container { padding: 0 16px; }
+    .section-title { font-size: 32px; }
+    .figma-featured-article .article-content { padding: 24px 20px; }
+    .figma-featured-article { aspect-ratio: 4/3; }
+    .figma-regular-article { flex-direction: column; align-items: flex-start; }
+    .figma-regular-article .article-image { width: 100%; height: 200px; }
     
-    .instagram-grid {
+    .instagram-section-inner, .instagram-posts-row {
+        gap: 10px;
+    }
+    .instagram-top-row, .instagram-bottom-row {
       grid-template-columns: repeat(2, 1fr);
+    }
+    .instagram-profile-card {
+      grid-column: span 2;
+    }
+  }
+  @media (max-width: 500px) {
+    .profile-follow-btn {
+        width: 100%;
+        max-width: 240px;
     }
   }
 </style>
@@ -408,12 +506,6 @@
 {
   "name": "Blog Section",
   "settings": [
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "Latest Articles"
-    },
     {
       "type": "text",
       "id": "title",
@@ -553,9 +645,6 @@
         },
         {
           "type": "regular_article"
-        },
-        {
-          "type": "instagram_post"
         },
         {
           "type": "instagram_post"
